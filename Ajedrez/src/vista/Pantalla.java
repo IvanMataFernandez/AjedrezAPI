@@ -77,10 +77,38 @@ public class Pantalla extends JFrame {
 	
 	public void colocarPiezas() {
 		// Duh, hacer lo de poner los dibujos aquí
-		
+	    // Crear las piezas y colocarlas en el tablero
+
+	    // Peones blancos
+	    for (int c = 0; c < 8; c++) {
+	        tablero[1][c].ponerPieza(new Pieza(0, true)); // 0 representa el peón
+	    }
+
+	    // Peones negros
+	    for (int c = 0; c < 8; c++) {
+	        tablero[6][c].ponerPieza(new Pieza(0, false)); // 0 representa el peón
+	    }
+
+	    // Resto de las piezas blancas
+	    tablero[0][0].ponerPieza(new Pieza(3, true)); // 3 representa la torre
+	    tablero[0][7].ponerPieza(new Pieza(3, true)); // 3 representa la torre
+	    tablero[0][1].ponerPieza(new Pieza(1, true)); // 1 representa el caballo
+	    tablero[0][6].ponerPieza(new Pieza(1, true)); // 1 representa el caballo
+	    tablero[0][2].ponerPieza(new Pieza(2, true)); // 2 representa el alfil
+	    tablero[0][5].ponerPieza(new Pieza(2, true)); // 2 representa el alfil
+	    tablero[0][3].ponerPieza(new Pieza(4, true)); // 4 representa la reina
+	    tablero[0][4].ponerPieza(new Pieza(5, true)); // 5 representa el rey
+
+	    // Resto de las piezas negras
+	    tablero[7][0].ponerPieza(new Pieza(3, false)); // 3 representa la torre
+	    tablero[7][7].ponerPieza(new Pieza(3, false)); // 3 representa la torre
+	    tablero[7][1].ponerPieza(new Pieza(1, false)); // 1 representa el caballo
+	    tablero[7][6].ponerPieza(new Pieza(1, false)); // 1 representa el caballo
+	    tablero[7][2].ponerPieza(new Pieza(2, false)); // 2 representa el alfil
+	    tablero[7][5].ponerPieza(new Pieza(2, false)); // 2 representa el alfil
+	    tablero[7][3].ponerPieza(new Pieza(4, false)); // 4 representa la reina
+	    tablero[7][4].ponerPieza(new Pieza(5, false)); // 5 representa el rey
 	}
-	
-	
 	
 	
 	public void procesarClick(int f, int c) {
