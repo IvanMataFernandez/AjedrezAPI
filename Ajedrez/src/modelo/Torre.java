@@ -1,18 +1,23 @@
 package modelo;
 
-public class Torre extends Pieza {
-    public Torre(int posX, int posY, String color) {
+import java.util.ArrayList;
+
+import modelo.Pieza.Tupla;
+
+public class Torre extends Reina {
+	
+	private boolean seMovio; // // El enroque (castling) solo se puede hacer si la torre no se movio
+	
+    public Torre(int posX, int posY, boolean color) {
         super(posX, posY, color);
+    	this.seMovio = false;
+
     }
 
     @Override
-    public boolean esMovimientoValido(int nuevaX, int nuevaY) {
-        // Implementa las reglas de movimiento de la torre aquí
-        // La torre se mueve en líneas rectas, horizontal o verticalmente.
-        // Debes verificar si el movimiento es válido según las reglas del ajedrez.
-        // Retorna true si es válido, false en caso contrario.
-        // Aquí puedes incluir la lógica específica del movimiento de la torre.
-        return false;
+    public ArrayList<Tupla> movimientosValidos() {
+    	
+    	return super.movimientosValidosPorTorre();
     }
 
 }

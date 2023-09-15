@@ -1,20 +1,22 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public abstract class Pieza {
     // Campos  para todas las piezas
     private int posX;
     private int posY;
-    private String color;
+    private boolean blancoYNoNegro;
 
     // Constructor
-    public Pieza(int posX, int posY, String color) {
+    public Pieza(int posX, int posY, boolean pBando) {
         this.posX = posX;
         this.posY = posY;
-        this.color = color;
+        this.blancoYNoNegro = pBando;
     }
 
     // Métodos abstractos que las demas piezas deben implementar
-    public abstract boolean esMovimientoValido(int nuevaX, int nuevaY);
+    public abstract ArrayList<Tupla> movimientosValidos();
 
 
     // Getters y setters para los campos privados
@@ -34,8 +36,8 @@ public abstract class Pieza {
         this.posY = posY;
     }
 
-    public String getColor() {
-        return color;
+    public boolean pBando() {
+        return this.blancoYNoNegro;
     }
     /*
     public void setColor(String color) {
@@ -44,4 +46,12 @@ public abstract class Pieza {
     Las piezas no cambian de bando tras ser creadas, no deberia ser necesario este
     
     */
+    
+    protected class Tupla {
+    	public Tupla (int f1, int c1) {f = f1; c = c1;}
+    	
+    	int f;
+    	int c;
+    	
+    }
 }
