@@ -4,120 +4,84 @@ import javax.swing.*;
 
 public class Pieza extends JLabel {
 	
-    private static final String RUTA_IMAGENES = "piezaspng"; // Ruta del paquete de imágenes
+	private final String RUTA_IMAGENES = ".\\piezaspng\\";
 		
 	public Pieza (int pTipoDePieza, boolean pBlanco) {
 		// Pre: Tipo de pieza: 0 -> Peon, 1 -> Caballo, 2 -> Alfil, 3 -> Torre, 4 -> Reina, 5 -> Rey
 
+		String rutaCompleta = "";
 		
-		super.setBounds(pTipoDePieza, pTipoDePieza, pTipoDePieza, pTipoDePieza);
-		// Valores discutibles, depende de como de grande es el dibujo de la pieza
-		// Estos valores se escriben relativos a la casilla a la que estan colocados
+
 		
 		switch (pTipoDePieza) {
 		case 0:
 			
 			if (pBlanco) {
-				String rutaCompleta = RUTA_IMAGENES + "peonb.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen peon blanco
+				rutaCompleta = RUTA_IMAGENES + "peonb.png";
+
 			} else {
-				String rutaCompleta = RUTA_IMAGENES + "peonn.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen peon negro
+				rutaCompleta = RUTA_IMAGENES + "peond.png";
+
 			}
 			
 			break;
 		case 1: 
 			
 			if (pBlanco) {
-				String rutaCompleta = RUTA_IMAGENES + "caballob.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen caballo blanco
+				rutaCompleta = RUTA_IMAGENES + "caballon.png";
+		
 			} else {
-				String rutaCompleta = RUTA_IMAGENES + "caballon.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen caballo negro
+				rutaCompleta = RUTA_IMAGENES + "caballod.png";
+
 			}
 			
 			break;
 		case 2:
 			
 			if (pBlanco) {
-				String rutaCompleta = RUTA_IMAGENES + "alfilb.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen alfil blanco
+				rutaCompleta = RUTA_IMAGENES + "alfilb.png";
+
 			} else {
-				String rutaCompleta = RUTA_IMAGENES + "alfiln.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen alfil negro
+				rutaCompleta = RUTA_IMAGENES + "alfild.png";
+
 			}
 			
 			break;
 		case 3:
 			
 			if (pBlanco) {
-				String rutaCompleta = RUTA_IMAGENES + "torreb.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen torre blanco
+				rutaCompleta = RUTA_IMAGENES + "torreb.png";
+
 			} else {
-				String rutaCompleta = RUTA_IMAGENES + "torren.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen torre negro
+				rutaCompleta = RUTA_IMAGENES + "torred.png";
+
 			}
 			
 			break;
 		case 4:
 			
 			if (pBlanco) {
-				String rutaCompleta = RUTA_IMAGENES + "reinab.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen reina blanca
+				rutaCompleta = RUTA_IMAGENES + "reinab.png";
+
 			} else {
-				String rutaCompleta = RUTA_IMAGENES + "reinan.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen reina negra
+				rutaCompleta = RUTA_IMAGENES + "reinad.png";
+
 			}
 			
 			break;
 		case 5:
 				
 			if (pBlanco) {
-				String rutaCompleta = RUTA_IMAGENES + "reyb.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen rey blanco
+				rutaCompleta = RUTA_IMAGENES + "reyb.png";
+
 			} else {
-				String rutaCompleta = RUTA_IMAGENES + "reyn.png";
-		        // Cargar la imagen y establecerla como icono de la etiqueta
-		        ImageIcon imagen = new ImageIcon(getClass().getResource(rutaCompleta));
-		        setIcon(imagen);
-				// Generar imagen rey negro
+				rutaCompleta = RUTA_IMAGENES + "reyd.png";
+
 			}
 			
-		}
-		
+		} 
+		super.setBounds(0, 0, 64, 64);
+		super.setIcon(new ImageIcon(rutaCompleta));
 		
 	}
 

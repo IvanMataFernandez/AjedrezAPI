@@ -37,8 +37,11 @@ public abstract class Pieza {
     public String getColor() {
         return color;
     }
-
+    /*
     public void setColor(String color) {
         this.color = color;
-    }
+    } 
+    Las piezas no cambian de bando tras ser creadas, no deberia ser necesario este
+    
+    */
 }

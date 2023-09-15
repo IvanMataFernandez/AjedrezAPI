@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class Pantalla extends JFrame {
 	
 	
 	private Pantalla () {
-		
+	//	this.metodoParaDebuggear();
 		this.inicializarTablero();
 		this.colocarPiezas();
 		
@@ -45,6 +46,21 @@ public class Pantalla extends JFrame {
 		// Pre: f, c integers en rango [0,7]
 		return this.tablero[f][c];
 		
+	}
+	
+	private void metodoParaDebuggear() {
+		super.setVisible(true);
+		super.setBounds(0, 0, 512, 512);
+		super.setResizable(false);
+		JPanel a = new JPanel(null);
+		a.setBackground(Color.red);
+		a.setOpaque(true);
+		a.setBounds(0, 0, 512, 512);
+		super.setContentPane(a);
+		JLabel b = new JLabel();
+		b.setBounds(0, 0, 64, 64);
+		b.setIcon(new ImageIcon(".\\piezaspng\\alfilb.png"));
+		a.add(b);
 	}
 	
 	private void inicializarTablero() {
@@ -73,41 +89,47 @@ public class Pantalla extends JFrame {
 
 
 		super.setVisible(true);
+
 	}
 	
 	public void colocarPiezas() {
 		// Duh, hacer lo de poner los dibujos aquí
 	    // Crear las piezas y colocarlas en el tablero
 
-	    // Peones blancos
-	    for (int c = 0; c < 8; c++) {
-	        tablero[1][c].ponerPieza(new Pieza(0, true)); // 0 representa el peón
-	    }
 
+		
 	    // Peones negros
 	    for (int c = 0; c < 8; c++) {
-	        tablero[6][c].ponerPieza(new Pieza(0, false)); // 0 representa el peón
+	        this.tablero[1][c].ponerPieza(new Pieza(0, false)); // 0 representa el peón
 	    }
 
-	    // Resto de las piezas blancas
-	    tablero[0][0].ponerPieza(new Pieza(3, true)); // 3 representa la torre
-	    tablero[0][7].ponerPieza(new Pieza(3, true)); // 3 representa la torre
-	    tablero[0][1].ponerPieza(new Pieza(1, true)); // 1 representa el caballo
-	    tablero[0][6].ponerPieza(new Pieza(1, true)); // 1 representa el caballo
-	    tablero[0][2].ponerPieza(new Pieza(2, true)); // 2 representa el alfil
-	    tablero[0][5].ponerPieza(new Pieza(2, true)); // 2 representa el alfil
-	    tablero[0][3].ponerPieza(new Pieza(4, true)); // 4 representa la reina
-	    tablero[0][4].ponerPieza(new Pieza(5, true)); // 5 representa el rey
+	    // Peones blancos
+	    for (int c = 0; c < 8; c++) {
+	        this.tablero[6][c].ponerPieza(new Pieza(0, true)); // 0 representa el peón
+	    }
 
 	    // Resto de las piezas negras
-	    tablero[7][0].ponerPieza(new Pieza(3, false)); // 3 representa la torre
-	    tablero[7][7].ponerPieza(new Pieza(3, false)); // 3 representa la torre
-	    tablero[7][1].ponerPieza(new Pieza(1, false)); // 1 representa el caballo
-	    tablero[7][6].ponerPieza(new Pieza(1, false)); // 1 representa el caballo
-	    tablero[7][2].ponerPieza(new Pieza(2, false)); // 2 representa el alfil
-	    tablero[7][5].ponerPieza(new Pieza(2, false)); // 2 representa el alfil
-	    tablero[7][3].ponerPieza(new Pieza(4, false)); // 4 representa la reina
-	    tablero[7][4].ponerPieza(new Pieza(5, false)); // 5 representa el rey
+	    this.tablero[0][0].ponerPieza(new Pieza(3, false)); // 3 representa la torre
+	    this.tablero[0][7].ponerPieza(new Pieza(3, false)); // 3 representa la torre
+	    this.tablero[0][1].ponerPieza(new Pieza(1, false)); // 1 representa el caballo
+	    this.tablero[0][6].ponerPieza(new Pieza(1, false)); // 1 representa el caballo
+	    this.tablero[0][2].ponerPieza(new Pieza(2, false)); // 2 representa el alfil
+	    this.tablero[0][5].ponerPieza(new Pieza(2, false)); // 2 representa el alfil
+	    this.tablero[0][3].ponerPieza(new Pieza(4, false)); // 4 representa la reina
+	    this.tablero[0][4].ponerPieza(new Pieza(5, false)); // 5 representa el rey
+
+	    // Resto de las piezas blancas
+	    this.tablero[7][0].ponerPieza(new Pieza(3, true)); // 3 representa la torre
+	    this.tablero[7][7].ponerPieza(new Pieza(3, true)); // 3 representa la torre
+	    this.tablero[7][1].ponerPieza(new Pieza(1, true)); // 1 representa el caballo
+	    this.tablero[7][6].ponerPieza(new Pieza(1, true)); // 1 representa el caballo
+	    this.tablero[7][2].ponerPieza(new Pieza(2, true)); // 2 representa el alfil
+	    this.tablero[7][5].ponerPieza(new Pieza(2, true)); // 2 representa el alfil
+	    this.tablero[7][3].ponerPieza(new Pieza(4, true)); // 4 representa la reina
+	    this.tablero[7][4].ponerPieza(new Pieza(5, true)); // 5 representa el rey
+
+	    
+	    super.repaint();
 	}
 	
 	

@@ -4,7 +4,7 @@ import java.awt.Color;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Casilla extends JLabel {
+public class Casilla extends JPanel {
 	
 	private int f;
 	private int c;
@@ -42,7 +42,6 @@ public class Casilla extends JLabel {
 		
 		// Se usa para alterar la segunda casilla del movimiento (a donde mueve), o al restablecer el tablero
 		
-		Pieza p = null;
 		
 		if (this.pieza != null) {
 			super.remove(this.pieza);
