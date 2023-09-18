@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="piezaspng"/>
+	<classpathentry kind="src" path="audio"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

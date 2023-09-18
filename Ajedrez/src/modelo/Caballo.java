@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import modelo.Pieza.Tupla;
 
 public class Caballo extends Pieza {
-    public Caballo(int posX, int posY, boolean color) {
-        super(posX, posY, color);
+    public Caballo(int posY, int posX, boolean color) {
+        super(posY, posX, color);
     }
 
     @Override

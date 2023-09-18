@@ -8,8 +8,8 @@ public class Rey extends Pieza {
 	
 	private boolean seMovio; // El enroque (castling) solo se puede hacer si el rey no se movio
 	
-    public Rey(int posX, int posY, boolean color) {
-        super(posX, posY, color);
+    public Rey(int posY, int posX, boolean color) {
+        super(posY, posX, color);
     	this.seMovio = false;
 
     }

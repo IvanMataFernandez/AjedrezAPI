@@ -5,8 +5,8 @@ import modelo.Pieza.Tupla;
 import modelo.Juego;
 
 public class Alfil extends Reina {
-    public Alfil(int posX, int posY, boolean color) {
-        super(posX, posY, color);
+    public Alfil(int posY, int posX, boolean color) {
+        super(posY, posX, color);
     }
 
     @Override
