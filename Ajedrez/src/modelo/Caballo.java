@@ -2,11 +2,10 @@ package modelo;
 
 import java.util.ArrayList;
 
-import modelo.Pieza.Tupla;
 
 public class Caballo extends Pieza {
     public Caballo(int posY, int posX, boolean color) {
-        super(posY, posX, color);
+        super(posY, posX, color,1);
     }
 
     @Override
@@ -15,11 +14,10 @@ public class Caballo extends Pieza {
         // El caballo se mueve en forma de "L" en cualquier dirección: dos pasos en una dirección y uno en la otra.
         // Debes verificar todos los movimientos posibles
         // Aquí puedes incluir la lógica específica del movimiento del caballo.
-    	 ArrayList<Tupla> movimientos = new ArrayList<>();
+    	 ArrayList<Tupla> movimientosValidos = new ArrayList<>();
          int x = getPosX();
          int y = getPosY();
          Juego j = Juego.getJuego();
-     	 Pieza[][] tablero=j.getTablero();
          boolean color = pBando(); // Obtener el color de la pieza (blanco o negro)
          int[][] movimientosPosibles = {
              {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2},
@@ -27,18 +25,17 @@ public class Caballo extends Pieza {
          };
 
          for (int[] movimiento : movimientosPosibles) {
-             int newX = x + movimiento[0];
-             int newY = y + movimiento[1];
+             int newX = x + movimiento[1];
+             int newY = y + movimiento[0];
 
              if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
-                 Pieza destino = tablero[newX][newY];
-                 if (!j.hayPieza(y, x) || j.esBlanco(y, x) != color) {
-                     movimientos.add(new Tupla(y, x));
+                 if (!j.hayPieza(newY, newX) || j.esBlanco(newY, newX) != color) {
+                     movimientosValidos.add(new Tupla(newY, newX, j.hayPieza(newY, newX)));
                  }
              }
          }
 
-         return movimientos;
+         return movimientosValidos;
      
 
     }

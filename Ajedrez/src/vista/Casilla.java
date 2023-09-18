@@ -23,6 +23,14 @@ public class Casilla extends JPanel {
 	}
 	
 	
+	public int getFila() {
+		return this.f;
+	}
+	
+	public int getCol() {
+		return this.c;
+		
+	}
 	
 	public Pieza quitarPieza() {
 		

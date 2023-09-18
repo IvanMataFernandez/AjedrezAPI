@@ -133,16 +133,50 @@ public class Pantalla extends JFrame {
 	}
 	
 	
-	public void procesarClick(int f, int c) {
+	public int procesarClick(int f, int c) {
 		
-		// TODO
+		
+		
+		// Post: Se añade el click a la posicion adecuada del stack, se returnea el tamaño de ella
 		
 		if (this.clicks[0] == null) {
 			this.clicks[0] = new Posicion(f,c);
+			return 1;
+		} else {
+			this.clicks[1] = new Posicion(f,c);
+			return 2;
 		}
 		
 	}
+	
+	public void eliminarClick(int val) {
+		// Pre: val = 0-1
+		this.clicks[val] = null;
+	}
 		
+	
+	public void marcarComoCasillaActual(int f, int c) {
+		this.tablero[f][c].marcarComoCasillaActual();
+	}
+	
+	public void marcarComoEspacioAMover(int f, int c) {
+		this.tablero[f][c].marcarComoEspacioAMover();
+	}
+	
+	public void marcarComoEspacioADondeComer(int f, int c) {
+		this.tablero[f][c].marcarComoEspacioADondeComer();
+
+	}
+	
+	public void desmarcarTodo() {
+		for (int i = 0; i != 8; i++) {
+			for (int j = 0; j != 8; j++) {
+				this.tablero[i][j].desmarcar();
+			}
+		}
+		
+		
+	}
 
 	
 	

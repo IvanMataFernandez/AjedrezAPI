@@ -2,6 +2,7 @@ package vista;
 import javax.swing.*;
 
 
+@SuppressWarnings("serial")
 public class Pieza extends JLabel {
 	
 	private final String RUTA_IMAGENES = ".\\piezaspng\\";
