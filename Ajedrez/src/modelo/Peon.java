@@ -9,8 +9,8 @@ public class Peon extends Pieza {
 	
 	private boolean vulnerableAEnPassant; // vulnerable <--> Su primer y unico movimiento ha sido avanzar dos casillas
 	
-    public Peon(int posX, int posY, boolean color) {
-        super(posX, posY, color);
+    public Peon(int posY, int posX, boolean color) {
+        super(posY, posX, color);
     	this.vulnerableAEnPassant = false;
 
     }

@@ -8,8 +8,8 @@ public class Torre extends Reina {
 	
 	private boolean seMovio; // // El enroque (castling) solo se puede hacer si la torre no se movio
 	
-    public Torre(int posX, int posY, boolean color) {
-        super(posX, posY, color);
+    public Torre(int posY, int posX, boolean color) {
+        super(posY, posX, color);
     	this.seMovio = false;
 
     }

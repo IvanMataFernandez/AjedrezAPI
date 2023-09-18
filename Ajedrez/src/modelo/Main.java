@@ -1,6 +1,7 @@
 package modelo;
 
 import controlador.*;
+import vista.ReproductorDeAudio;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
 		Dibujador dib = Dibujador.getDibujador();
 		Juego j = Juego.getJuego();
 		dib.inicializarPantalla();
-		
+		ReproductorDeAudio.getRep().reproducirSFX("tetris mario");
 		j.jugar();
 		
 
