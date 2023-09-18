@@ -38,13 +38,64 @@ public class Reina extends Pieza {
     }
     
     protected ArrayList<Tupla> movimientosValidosPorAlfil() {
-    	
-        // Implementa las reglas de movimiento del alfil aquí
-        // El alfil se mueve diagonalmente las casillas que quiera
-        // Debes verificar todos los movimientos posibles
-        // Aquí puedes incluir la lógica específica del movimiento del alfil.
-    	
-    	return null;
+    	ArrayList<Tupla> movimientosValidos = new ArrayList<>();
+        int x = super.getPosX();
+        int y= super.getPosY();
+    	Juego j = Juego.getJuego();
+    	 boolean color = super.pBando(); // Obtener el color de la pieza (blanco o negro)
+	    // Movimientos en diagonal superior izquierda
+	    for (int i = 1; x - i >= 0 && y - i >= 0; i++) {
+	        if (!j.hayPieza(y, x)) {
+	            movimientosValidos.add(new Tupla(y - i, x - i));
+	        } else if (j.esBlanco(y, x) != color) {
+	            // La casilla contiene una pieza del oponente, podemos capturarla
+	            movimientosValidos.add(new Tupla(y - i, x - i));
+	            break; // No se pueden seguir moviendo en esta dirección después de una captura
+	        } else {
+	            break; // No se pueden seguir moviendo en esta dirección si hay una pieza del mismo color
+	        }
+	    }
+	    
+	 // Movimientos en diagonal superior derecha
+	    for (int i = 1; x - i >= 0 && y + i < 8; i++) {
+	    	 if (!j.hayPieza(y, x)) {
+	            movimientosValidos.add(new Tupla(y - i, x + i));
+	        } else if (j.esBlanco(y, x) != color) {
+	            // La casilla contiene una pieza del oponente, podemos capturarla
+	            movimientosValidos.add(new Tupla(y - i, x + i));
+	            break; // No se pueden seguir moviendo en esta dirección después de una captura
+	        } else {
+	            break; // No se pueden seguir moviendo en esta dirección si hay una pieza del mismo color
+	        }
+	    }
+
+	    // Movimientos en diagonal inferior izquierda
+	    for (int i = 1; x + i < 8 && y - i >= 0; i++) {
+	        if (!j.hayPieza(y, x)) {
+	            movimientosValidos.add(new Tupla(y + i, x - i));
+	        } else if (j.esBlanco(y, x) != color) {
+	            // La casilla contiene una pieza del oponente, podemos capturarla
+	            movimientosValidos.add(new Tupla(y + i, x - i));
+	            break; // No se pueden seguir moviendo en esta dirección después de una captura
+	        } else {
+	            break; // No se pueden seguir moviendo en esta dirección si hay una pieza del mismo color
+	        }
+	    }
+
+	    // Movimientos en diagonal inferior derecha
+	    for (int i = 1; x + i < 8 && y + i < 8; i++) {
+	        if (!j.hayPieza(y,x)) {
+	            movimientosValidos.add(new Tupla(y+ i, x + i));
+	        } else if (j.esBlanco(y, x) != color) {
+	            // La casilla contiene una pieza del oponente, podemos capturarla
+	            movimientosValidos.add(new Tupla(y + i, x + i));
+	            break; // No se pueden seguir moviendo en esta dirección después de una captura
+	        } else {
+	            break; // No se pueden seguir moviendo en esta dirección si hay una pieza del mismo color
+	        }
+	    }
+	    
+	   return movimientosValidos;
     }
     
 

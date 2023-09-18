@@ -25,8 +25,34 @@ public class Peon extends Pieza {
     	// Información: https://es.wikipedia.org/wiki/Captura_al_paso
         // Debes verificar todos los movimientos posibles
         // Aquí puedes incluir la lógica específica del movimiento del peón.
-    	
-        return null;
+    	ArrayList<Tupla> movimientosValidos = new ArrayList<>();
+        int x = super.getPosX();
+        int y= super.getPosY();
+    	Juego j = Juego.getJuego();
+    	boolean color = super.pBando(); // Obtener el color de la pieza (blanco o negro)
+    	// si es primer movimiento
+    	if (j.esBlanco(y, x) ) {
+    			if(!j.hayPieza(y+1, x)) {
+    				movimientosValidos.add(new Tupla(y - 1, x ));
+    				if(y==6 && !j.hayPieza(y-2, x)) {
+    					movimientosValidos.add(new Tupla(y - 2, x ));
+    				}
+    		}
+    		
+    	}else {
+    		if (!j.esBlanco(y, x) ) {
+    			if(!j.hayPieza(y+1, x)) {
+    				movimientosValidos.add(new Tupla(y + 1, x ));
+    				if(y==1 && !j.hayPieza(y+2, x)) {
+    					movimientosValidos.add(new Tupla(y + 2, x ));
+    				}
+
+    			}
+    			
+    		}
+    	} //FALTA EL DIAGONAL....
+
+        return movimientosValidos;
     }
     
 

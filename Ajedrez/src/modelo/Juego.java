@@ -20,6 +20,21 @@ public class Juego {
 	
 	}
 	
+	public boolean hayPieza(int f, int c) {
+		return this.tablero[f][c] != null;
+	}
+	public boolean esBlanco(int f, int c) {
+		// Pre: Espacio no vacio
+		return this.tablero[f][c].pBando();
+		
+	}
+	
+	public boolean vulnerableAEnPassant(int f, int c) {
+		// Pre: Espacio no vacio
+		return this.tablero[f][c].vulnerableAEnPassant();
+		
+	}
+	
 	
 	private void inicializarTablero() {
 		// Post: Generar tablero con la POV del jugador blanco, (0,0) es arriba izquierda (7,0) abajo izquierda
@@ -56,6 +71,13 @@ public class Juego {
 		
 		
 	}
+
+
+	public  Pieza[][] getTablero() {
+		return tablero;
+	}
+	
+	
 	
 	
 }

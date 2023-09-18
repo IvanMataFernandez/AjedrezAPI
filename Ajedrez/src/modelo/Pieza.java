@@ -9,7 +9,7 @@ public abstract class Pieza {
     private boolean blancoYNoNegro;
 
     // Constructor
-    public Pieza(int posX, int posY, boolean pBando) {
+    public Pieza(int posY, int posX, boolean pBando) {
         this.posX = posX;
         this.posY = posY;
         this.blancoYNoNegro = pBando;
@@ -39,6 +39,10 @@ public abstract class Pieza {
     public boolean pBando() {
         return this.blancoYNoNegro;
     }
+    
+    public boolean vulnerableAEnPassant() {
+    	return false;
+    }    
     /*
     public void setColor(String color) {
         this.color = color;
