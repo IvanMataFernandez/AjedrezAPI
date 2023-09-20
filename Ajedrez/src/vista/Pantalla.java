@@ -78,7 +78,6 @@ public class Pantalla extends JFrame {
 		for (int f = 0; f != 8; f++) {
 			for (int c = 0; c != 8; c++) {
 
-				
 				this.tablero[f][c] = new Casilla(f,c);
 				this.tablero[f][c].addMouseListener(new ControladorDeCasilla(this.tablero[f][c]));
 			

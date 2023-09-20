@@ -24,12 +24,15 @@ public class Jugador {
 	}
 	
 	
-	public void recalcularMovimientosLegales() {
+	public boolean  recalcularMovimientosLegales() {
+		// Post: Movimientos almacenados en cada pieza, true si al menos una puede mover
 		// Al principio del turno ejecutar esto para que cada pieza actualice en su AL sus movimientos posibles del turno
-		
+		boolean puedeMover = false;
 		for (Pieza pieza : susPiezas) {
-			pieza.recalcularMovimientosLegales();
+			puedeMover = pieza.recalcularMovimientosLegales() || puedeMover;
 		}
+		
+		return puedeMover;
 		
 		
 	}

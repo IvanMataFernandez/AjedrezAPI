@@ -35,17 +35,26 @@ public class ControladorDeCasilla implements MouseListener {
 		int f = this.laCasilla.getFila();
 		int c = this.laCasilla.getCol();
 		
+		System.out.println(f);
+		System.out.println(c);
+		
 		int num = p.procesarClick(f, c);
 		
 		if (num == 1) {
-			
 			if (true) { // LLAMADA AL MOTOR DEL JUEGO PARA PREGUNTAR POR PLAYER AQUI
 					    // POR AHORA SIMULAMOS QUE ES EL TURNO DE LOS DOS SIEMPRE
-				
 				ArrayList<Tupla> casillasPosibles = j.obtenerMovimientosLegalesDe(f, c);
+				p.marcarComoCasillaActual(f, c);
 				// MARCAR LA CASILLA CLICKADA EN SI
 				for (Tupla t: casillasPosibles) {
 					// COMPLETAR, MARCAR LAS CASILLAS EN LAS QUE SE PUEDE HACER EL MOV
+					if(t.come()) {
+						p.marcarComoEspacioADondeComer(t.getF(), t.getC());
+						
+					}
+					else {
+						p.marcarComoEspacioAMover(t.getF(), t.getC());
+					}
 				}
 				
 				

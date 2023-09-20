@@ -98,20 +98,22 @@ public class Juego {
 		
 			
 		// Post: 0 -> Empate | 1 -> Blanco | 2 -> Negro
-
+		ListaJugadores l = ListaJugadores.getListaJugadores();
+		Jugador j = l.obtenerJugadorActual();
 		
 		this.inicializarTablero();
 
+	/*	while (j.recalcularMovimientosLegales()) {
+			
+			Parar la ejecucion hasta que se ha movido
+			
+			
+			l.cambiarJugador();
+			j = l.obtenerJugadorActual();
+		} */
 		
-		// TODO:
+		j.recalcularMovimientosLegales();
 		
-		// Establecer turno del jugador
-		
-		// Calcular movimientos legales
-		
-		// Esperar a los clicks para que se de la orden de mover
-		
-		// Cambiar el turno
 		
 		
 		return 0; // Provisional

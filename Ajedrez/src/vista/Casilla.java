@@ -20,6 +20,8 @@ public class Casilla extends JPanel {
 		
 		super.setBounds(f*64, c*64, 64, 64);
 		super.setOpaque(true);
+		this.f = f;
+		this.c = c;
 	}
 	
 	

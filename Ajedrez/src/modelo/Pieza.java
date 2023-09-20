@@ -9,7 +9,6 @@ public abstract class Pieza {
     private int posY;
     private boolean blancoYNoNegro;
     private int id; // Tipo de pieza: 0 -> Peon, 1 -> Caballo, 2 -> Alfil, 3 -> Torre, 4 -> Reina, 5 -> Rey
-
     private ArrayList<Tupla> movimientosLegales;
      
     // Constructor
@@ -34,7 +33,10 @@ public abstract class Pieza {
     }
     
     
-    public void recalcularMovimientosLegales() {
+    public boolean recalcularMovimientosLegales() {
+    	
+    	// Post: Tiene al menos un movimiento legal, se han calculado y almacenado los movimientos
+    	
     	this.movimientosLegales = this.movimientosValidos();
     	
     	for (Tupla t: this.movimientosLegales) {
@@ -48,6 +50,8 @@ public abstract class Pieza {
     		
     		
     	}
+    	
+    	return this.movimientosLegales.size() != 0;
     }
     
     // Métodos abstractos que las demas piezas deben implementar
