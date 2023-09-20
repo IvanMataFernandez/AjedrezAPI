@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import modelo.Juego;
+import modelo.ListaJugadores;
 import modelo.Tupla;
 import vista.*;
 
@@ -32,45 +33,61 @@ public class ControladorDeCasilla implements MouseListener {
 		
 		Pantalla p = Pantalla.getPantalla();
 		Juego j = Juego.getJuego();
+		ListaJugadores l = ListaJugadores.getListaJugadores();
 		int f = this.laCasilla.getFila();
 		int c = this.laCasilla.getCol();
-		
-		System.out.println(f);
-		System.out.println(c);
-		
 		int num = p.procesarClick(f, c);
+
 		
 		if (num == 1) {
-			if (true) { // LLAMADA AL MOTOR DEL JUEGO PARA PREGUNTAR POR PLAYER AQUI
-					    // POR AHORA SIMULAMOS QUE ES EL TURNO DE LOS DOS SIEMPRE
+			if (j.hayPieza(f, c) && !(j.esBlanco(f, c) ^ l.esTurnoDeBlanco())) { 
+
 				ArrayList<Tupla> casillasPosibles = j.obtenerMovimientosLegalesDe(f, c);
 				p.marcarComoCasillaActual(f, c);
-				// MARCAR LA CASILLA CLICKADA EN SI
+				
 				for (Tupla t: casillasPosibles) {
-					// COMPLETAR, MARCAR LAS CASILLAS EN LAS QUE SE PUEDE HACER EL MOV
-					if(t.come()) {
-						p.marcarComoEspacioADondeComer(t.getF(), t.getC());
-						
-					}
-					else {
+					if (t.come()) {
+						p.marcarComoEspacioADondeComer(t.getF(), t.getC());		
+				
+					} else {
 						p.marcarComoEspacioAMover(t.getF(), t.getC());
 					}
 				}
 				
 				
 			} else {
-				p.eliminarClick(num);
+				p.eliminarClick(1);
 				p.desmarcarTodo();
 			}
 			
 		} else {
 			
-			if (true) {
+			boolean val = false;
+			int i = 0;
+			int f1 = p.primerClickFila();
+			int c1 = p.primerClickCol();
+			
+			ArrayList<Tupla> casillasPosibles = j.obtenerMovimientosLegalesDe(f1, c1);
+
+			while (!val && i < casillasPosibles.size()) {
+				Tupla t = casillasPosibles.get(i);
+				val = t.getF() == f && t.getC() == c;
+				i++;	
+			}
+			
+			
+			if (val) {
 				// Programar Movimiento AQUI
 				p.desmarcarTodo();
+				p.eliminarClick(2);
+				p.eliminarClick(1);
+
 				
 			} else {
-				p.eliminarClick(num);
+
+				p.eliminarClick(2);
+				p.eliminarClick(1);
+
 				p.desmarcarTodo();
 			}
 			

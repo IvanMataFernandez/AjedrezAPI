@@ -128,6 +128,8 @@ public class Pantalla extends JFrame {
 	    this.tablero[7][4].ponerPieza(new Pieza(5, true)); // 5 representa el rey
 
 	    
+
+	    
 	    super.repaint();
 	}
 	
@@ -148,9 +150,18 @@ public class Pantalla extends JFrame {
 		
 	}
 	
+	public int primerClickFila() {
+		// Pre: Hay un click al menos registrado
+		return this.clicks[0].f;
+	}
+	public int primerClickCol() {
+		// Pre: Hay un click al menos registrado
+		return this.clicks[0].c;
+	}
+	
 	public void eliminarClick(int val) {
-		// Pre: val = 0-1
-		this.clicks[val] = null;
+		// Pre: Val usa base 1 de indexado, es decir val en rango [1,2]
+		this.clicks[val-1] = null;
 	}
 		
 	

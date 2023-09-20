@@ -16,6 +16,7 @@ public class Peon extends Pieza {
 
     @Override
     public ArrayList<Tupla> movimientosValidos() {
+    	
         // Implementa las reglas de movimiento del peón aquí
         // Por ejemplo, un peón puede avanzar una casilla hacia adelante o dos casillas en su primer movimiento.
     	// Pista: Para saber si es su primer movimiento puedes mirar la fila en la que esta
@@ -34,7 +35,7 @@ public class Peon extends Pieza {
     	// si es primer movimiento
     	if (color) {
     		
-    			if(!j.hayPieza(y+1, x)) {
+    			if(!j.hayPieza(y-1, x)) {
     				movimientosValidos.add(new Tupla(y-1, x, false ));
     				if(y == 6 && !j.hayPieza(y-2, x)) {
     					movimientosValidos.add(new Tupla(y-2, x, false ));

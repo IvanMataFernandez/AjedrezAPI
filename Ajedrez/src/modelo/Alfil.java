@@ -8,7 +8,7 @@ public class Alfil extends Reina {
     }
 
     @Override
-    public ArrayList<Tupla> movimientosValidos() { //Math.abs(f1 – f2) == Math.abs(c1 – c2)
+    public ArrayList<Tupla> movimientosValidos() { 
     	
     	return super.movimientosValidosPorAlfil();
     }

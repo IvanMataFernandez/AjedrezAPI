@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Pieza {
     // Campos  para todas las piezas
+	
     private int posX;
     private int posY;
     private boolean blancoYNoNegro;
@@ -24,6 +25,9 @@ public abstract class Pieza {
 
  
     public ArrayList<Tupla> obtenerMovimientosLegales() {
+    	// Pre: Se han recalculado los movimientos legales y actualizado el AL de movimientos posibles
+    	// Post: Devuelve la l
+    	
     	return this.movimientosLegales;
     }
     
@@ -44,7 +48,7 @@ public abstract class Pieza {
     		// SUSTITUIR LA CONDICION DEL IF POR LA COMPROBACION DE TRAS HACER EL MOVIMIENTO
     		// SI EL REY DEL JUGADOR ESTA EN JAQUE
     		
-    		if (false) {
+    		if (false) { // Simular movimiento del tablero y deshacerlo en el metodo donde va el False
     			this.movimientosLegales.remove(t);
     		}
     		

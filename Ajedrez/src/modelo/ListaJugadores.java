@@ -23,6 +23,10 @@ public class ListaJugadores {
 		return this.jugadores[this.jugadorActual%2];
 	}
 	
+	public boolean esTurnoDeBlanco() {
+		return this.jugadorActual%2==0;
+	}
+	
 	public Jugador obtenerJugador(boolean pBando) {
 		if (pBando) {
 			return this.jugadores[0];
