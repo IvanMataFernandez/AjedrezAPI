@@ -8,8 +8,8 @@ public class Alfil extends Reina {
     }
 
     @Override
-    public ArrayList<Tupla> movimientosValidos() { 
+    /*public ArrayList<Tupla> movimientosValidos() { 
     	
     	return super.movimientosValidosPorAlfil();
-    }
+    }*/
 }
