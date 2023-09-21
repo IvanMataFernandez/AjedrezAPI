@@ -15,8 +15,8 @@ public class Main {
 		 	TODO LIST:
 		 	
 		 	- Computar si se puede hacer castling (En la clase del REY)  HECHO
-		 	- Filtrar los movimientos "legales" que dejan en jaque al rey tras ejecutarlos (en clase Pieza)
-		 	- Programar WinCon / DrawCon del juego (En la clase Juego)
+		 	- Filtrar los movimientos "legales" que dejan en jaque al rey tras ejecutarlos (en clase Pieza)  SEMIHECHO
+		 	- Programar WinCon / DrawCon del juego (En la clase Juego)  HECHO
 		 	- Programar check para promocion de peones (La clase esta por decidir donde poner)
 		 	- Programar el movimiento internamente del programa (En alguna clase modelo)
 		 	- Programar el movimiento en la interfaz (En alguna clase vista)
