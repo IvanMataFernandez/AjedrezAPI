@@ -8,6 +8,10 @@ public class Juego {
 	
 	private Pieza[][] tablero;
 	
+	public static final int VICTORIA_BLANCO = 1;
+	public static final int VICTORIA_NEGRO = 2;
+	public static final int EMPATE = 0;
+	
 	private Juego() {
 		// Constructora privada MAE
 		
@@ -67,6 +71,74 @@ public class Juego {
 		
 	}
 	
+	
+	private boolean condicionDeVictoria() {
+	    // condiciones de victoria, como capturar el rey del oponente, etc.
+	    // Retorna true si se cumple una condición de victoria, de lo contrario, retorna false.
+	    // Ejemplo:
+
+	    return false;
+	}
+	
+	private boolean condicionDeEmpate() {
+	    // condiciones de empate, como repetición de movimientos, falta de material, etc.
+	    // Retorna true si se cumple una condición de empate, de lo contrario, retorna false.
+	    // Ejemplo:
+	    // return seRepiteElMismoTablero();
+	    return false;
+	}
+	
+	private boolean reyEnJaque(Pieza rey) {
+	    // Obtener la posición del rey
+	    int posXRey = rey.getPosX();
+	    int posYRey = rey.getPosY();
+
+	    // Obtener el color del rey (blanco o negro)
+	    boolean esBlanco = rey.pBando();
+
+	    // Tablero del juego
+	    Pieza[][] tablero = Juego.getJuego().getTablero();
+
+	    // Direcciones en las que un atacante puede poner al rey en jaque
+	    int[][] direccionesAtaque = {
+	        {-1, -1}, {-1, 0}, {-1, 1},
+	        {0, -1},           {0, 1},
+	        {1, -1}, {1, 0}, {1, 1}
+	    };
+
+	    // Verificar si hay alguna pieza del oponente que amenaza al rey
+	    for (int[] direccion : direccionesAtaque) {
+	        int deltaX = direccion[1];
+	        int deltaY = direccion[0];
+
+	        // Calcular la nueva posición a verificar
+	        int nuevaPosX = posXRey + deltaX;
+	        int nuevaPosY = posYRey + deltaY;
+
+	        // Verificar si la nueva posición está dentro del tablero
+	        if (nuevaPosX >= 0 && nuevaPosX < 8 && nuevaPosY >= 0 && nuevaPosY < 8) {
+	            Pieza posibleAtacante = tablero[nuevaPosY][nuevaPosX];
+
+	            // Verificar si la casilla contiene una pieza del oponente
+	            if (posibleAtacante != null && posibleAtacante.pBando() != esBlanco) {
+	                // Verificar si la pieza puede moverse a la posición del rey
+	                ArrayList<Tupla> movimientosLegales = posibleAtacante.obtenerMovimientosLegales();
+
+	                for (Tupla movimiento : movimientosLegales) {
+	                    if (movimiento.getF() == posXRey && movimiento.getC() == posYRey) {
+	                        // El rey está en jaque
+	                        return true;
+	                    }
+	                }
+	            }
+	        }
+	    }
+
+	    // Si no se encontraron atacantes que amenacen al rey, no está en jaque
+	    return false;
+	}
+
+
 	
 	private void inicializarTablero() {
 		// Post: Generar tablero con la POV del jugador blanco, (0,0) es arriba izquierda (7,0) abajo izquierda

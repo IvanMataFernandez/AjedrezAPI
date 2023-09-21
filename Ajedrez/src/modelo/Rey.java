@@ -42,11 +42,45 @@ public class Rey extends Pieza {
                     }
                 }
             } 
+            
+            //FALTA COMPROBAR EL JAQUE MATE...
+            
+            // Enroque largo (0-0-0)
+            if (!seMovio) {
+                if (!j.hayPieza(y, 0) && !j.hayPieza(y, 1) && !j.hayPieza(y, 2) && !j.hayPieza(y, 3) &&
+                    j.getTablero()[y][4] instanceof Torre && !((Torre) j.getTablero()[y][4]).seMovio) {
+                    // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
+                    boolean caminoDespejado = true;
+                    for (int i = 1; i <= 3; i++) {
+                        if (j.hayPieza(y, i)) {
+                            caminoDespejado = false;
+                            break;
+                        }
+                    }
+                    if (caminoDespejado) {
+                        movimientosValidos.add(new Tupla(y, x - 2,false)); // Enroque largo
+                    }
+                }
+            }
+
+            // Enroque corto (0-0)
+            if (!seMovio) {
+                if (!j.hayPieza(y, 5) && !j.hayPieza(y, 6) &&
+                    j.getTablero()[y][7] instanceof Torre && !((Torre) j.getTablero()[y][7]).seMovio)) {
+                    // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
+                    boolean caminoDespejado = true;
+                    for (int i = 5; i <= 6; i++) {
+                        if (j.hayPieza(y, i)) {
+                            caminoDespejado = false;
+                            break;
+                        }
+                    }
+                    if (caminoDespejado) {
+                        movimientosValidos.add(new Tupla(y, x + 2,false)); // Enroque corto
+                    }
+                }
+            }
     	 
-    	
-    	// CALCULAR CASTLING
-    	
-    	
         return movimientosValidos;
     }
 
