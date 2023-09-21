@@ -30,7 +30,7 @@ public class Jugador {
 	}
 	
 	
-	public boolean  recalcularMovimientosLegales() {
+	public boolean  recalcularMovimientosLegales(Pieza[][] pMatriz) {
 		// Post: Cada pieza actualiza en su AL sus movimientos legales, return true si al menos una puede mover
 		
 		
@@ -39,7 +39,7 @@ public class Jugador {
 		
 		boolean puedeMover = false;
 		for (Pieza pieza : susPiezas) {
-			puedeMover = pieza.recalcularMovimientosLegales() || puedeMover;
+			puedeMover = pieza.recalcularMovimientosLegales(pMatriz) || puedeMover;
 		}
 		
 		return puedeMover;

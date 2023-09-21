@@ -14,7 +14,7 @@ public class Main {
 		/*
 		 	TODO LIST:
 		 	
-		 	- Computar si se puede hacer castling (En la clase del REY)
+		 	- Computar si se puede hacer castling (En la clase del REY)  HECHO
 		 	- Filtrar los movimientos "legales" que dejan en jaque al rey tras ejecutarlos (en clase Pieza)
 		 	- Programar WinCon / DrawCon del juego (En la clase Juego)
 		 	- Programar check para promocion de peones (La clase esta por decidir donde poner)

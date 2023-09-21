@@ -37,7 +37,7 @@ public abstract class Pieza {
     }
     
     
-    public boolean recalcularMovimientosLegales() {
+    public boolean recalcularMovimientosLegales(Pieza[][] pPiezas) {
     	
     	// Post: Tiene al menos un movimiento legal, se han calculado y almacenado los movimientos
     	
@@ -48,7 +48,7 @@ public abstract class Pieza {
     		// SUSTITUIR LA CONDICION DEL IF POR LA COMPROBACION DE TRAS HACER EL MOVIMIENTO
     		// SI EL REY DEL JUGADOR ESTA EN JAQUE
     		
-    		if (false) { // Simular movimiento del tablero y deshacerlo en el metodo donde va el False
+    		if () { // Simular movimiento del tablero y deshacerlo en el metodo donde va el False
     			this.movimientosLegales.remove(t);
     		}
     		

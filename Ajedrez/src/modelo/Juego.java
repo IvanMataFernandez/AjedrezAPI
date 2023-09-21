@@ -193,7 +193,7 @@ public class Juego {
 		
 		this.inicializarTablero();
 
-		while (j.recalcularMovimientosLegales()) {
+		while (j.recalcularMovimientosLegales(this.tablero)) {
 		l.cambiarJugador();
 		j = l.obtenerJugadorActual();
 	
