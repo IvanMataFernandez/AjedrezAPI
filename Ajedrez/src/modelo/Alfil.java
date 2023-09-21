@@ -7,9 +7,9 @@ public class Alfil extends Reina {
         super(posY, posX, color,2);
     }
 
-    @Override
-    /*public ArrayList<Tupla> movimientosValidos() { 
+
+    public ArrayList<Tupla> movimientosValidos() { 
     	
     	return super.movimientosValidosPorAlfil();
-    }*/
+    }
 }
