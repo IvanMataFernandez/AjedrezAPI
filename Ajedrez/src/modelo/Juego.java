@@ -198,7 +198,7 @@ public class Juego {
 		j = l.obtenerJugadorActual();
 	
 		}
-		j.recalcularMovimientosLegales();
+		
 		
 		
 		

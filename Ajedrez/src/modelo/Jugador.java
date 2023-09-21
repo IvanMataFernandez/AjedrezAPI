@@ -47,4 +47,21 @@ public class Jugador {
 		
 	}
 	
+	public Pieza getRey() {
+		boolean enc = false;
+		int pos = 0;
+		while(!enc) {
+			if (this.susPiezas[pos].tipo() == 5){
+				enc = true;
+				
+				
+			}
+			else {
+				pos++;
+			}
+			
+		}
+		return this.susPiezas[pos];
+	}
+	
 }
