@@ -198,6 +198,22 @@ public class Juego {
 		j = l.obtenerJugadorActual();
 	
 		}
+		Pieza p = j.getRey();
+		
+		if(reyEnJaque(p)) {
+			
+			if(p.pBando() == true) {
+				
+				return 2 ;
+			}
+			else  {
+				return 1;
+			}
+			
+		}
+		else {
+			return 0;
+		}
 		
 		
 		
