@@ -7,6 +7,7 @@ public class Jugador {
 	private boolean blanco;
 	private int victorias;
 	private ArrayList<Pieza> susPiezas;
+	private Rey rey;
 	
 	public Jugador (boolean pBlanco) {
 		this.blanco = pBlanco;
@@ -14,10 +15,18 @@ public class Jugador {
 		this.susPiezas = new ArrayList<Pieza>();
 	}
 	
+	public boolean esBlanco() {
+		return this.blanco;
+	}
+	
 	public void añadirPieza(Pieza pPieza) {
 		// Pre: una pieza existente, es del mismo equipo que el jugador
 		// Post: Darle una pieza a su equipo
 		// Cada vez que una pieza se genera por constructora se añade a su jugador concreto aquí
+		
+		if (pPieza.tipo() == 5) {
+			this.rey = (Rey) pPieza;
+		}
 		
 		this.susPiezas.add(pPieza);
 		
@@ -47,21 +56,10 @@ public class Jugador {
 		
 	}
 	
-	public Pieza getRey() {
-		boolean enc = false;
-		int pos = 0;
-		while(!enc) {
-			if (this.susPiezas[pos].tipo() == 5){
-				enc = true;
-				
-				
-			}
-			else {
-				pos++;
-			}
-			
-		}
-		return this.susPiezas[pos];
+	public boolean reyEnJaque() {
+		return this.rey.enRangoDelRival();
 	}
+	
+
 	
 }

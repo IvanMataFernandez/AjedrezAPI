@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import modelo.Juego;
 import modelo.ListaJugadores;
+import modelo.Movimiento;
 import modelo.Tupla;
 import vista.*;
 
@@ -77,11 +78,21 @@ public class ControladorDeCasilla implements MouseListener {
 			
 			
 			if (val) {
-				// Programar Movimiento AQUI
+				// Mover internamente en el juego
+				
+				Movimiento mov = j.moverPieza(f1, c1, f, c);
+				
+				// Mover las piezas necesarias en la interfaz
+				this.procesarInstruccionesAPantalla(mov.informarPantalla());
+				
+
+				
+				
 				p.desmarcarTodo();
 				p.eliminarClick(2);
 				p.eliminarClick(1);
 
+				j.setSeMovio();
 				
 			} else {
 
@@ -97,6 +108,55 @@ public class ControladorDeCasilla implements MouseListener {
 		
 		
 	}
+	
+	private void procesarInstruccionesAPantalla(ArrayList<ComandoAInterfazBorrarPieza> comandos) {
+		
+		/* Post: Se procesan las instrucciones sobre que casillas se deben editar y se
+		       ven reflejadas en la pantalla. Estos cambios son puramente visuales.
+		
+	       Nota: Funcionalidades aceptadas:
+	       - Borrar (f, c) -> Si hay una pieza en (f, c), se elimina
+	       - Mover (f1, c1, f, c) -> Mover la pieza en (f1, c1) a (f, c). Si 
+	         había una pieza en (f, c), es eliminada automáticamente
+	      
+	       - Añadir (f, c, tipo, equipo) -> Poner una pieza de un tipo y equipo concreto
+	         en (f, c). Se elimina la pieza que estaba previamente en (f, c)
+	         
+	         
+	         Nota2: Añadir no está implementado todavía
+		
+		
+		*/
+		
+		Pantalla p = Pantalla.getPantalla();
+		
+		for (int i = 0; i != comandos.size(); i++) {
+			ComandoAInterfazBorrarPieza com = comandos.get(i);
+			
+			// Nota, Borrar hereda a las demas, por lo que NO se debe
+			// mirar si com instanceof la clase de borrar pq siempre es true,
+			// en su lugar, mirar si es además hija de ella mirando para ello la
+			// clase concreta
+			
+			
+			
+			if (com instanceof ComandoAInterfazMoverPieza) {
+				ComandoAInterfazMoverPieza com2 = (ComandoAInterfazMoverPieza) com;
+				p.moverPieza(com2.getF1(), com2.getC1(), com2.getF(), com2.getC());
+				
+				
+			// TODO: Implementar else if con ComandoAInterfazAñadirPieza aquí	
+				
+			} else {
+
+				p.quitarPieza(com.getF(), com.getC());
+				
+			}
+			
+		}
+
+	}
+	
 
 	@Override
 	public void mousePressed(MouseEvent e) {

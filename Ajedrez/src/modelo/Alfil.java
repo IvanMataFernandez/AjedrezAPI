@@ -12,4 +12,8 @@ public class Alfil extends Reina {
     	
     	return super.movimientosValidosPorAlfil();
     }
+    
+	public String toString() {
+		return "b";
+	}
 }

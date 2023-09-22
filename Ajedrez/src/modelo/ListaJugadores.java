@@ -16,7 +16,8 @@ public class ListaJugadores {
 	
 	
 	public void cambiarJugador() {
-		this.jugadorActual =+ 1;
+		this.jugadorActual = this.jugadorActual + 1;
+
 	}
 	
 	public Jugador obtenerJugadorActual () {

@@ -12,11 +12,25 @@ public class Torre extends Reina {
     	this.seMovio = false;
 
     }
+    
 
-    @Override
+    
     public ArrayList<Tupla> movimientosValidos() {
     	
     	return super.movimientosValidosPorTorre();
     }
+    
+    public boolean seMovio() {return this.seMovio;}
 
+	public void procesarMovimiento(int f, int c) {
+
+		// Se está aceptando el movimiento, así que se habrá movido
+		
+		this.seMovio = true;
+	}
+	
+	public String toString() {
+		return "r";
+	}
+    
 }

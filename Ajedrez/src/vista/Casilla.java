@@ -43,6 +43,7 @@ public class Casilla extends JPanel {
 			p = this.pieza;
 			super.remove(this.pieza);
 			this.pieza = null;
+			super.repaint();
 		}
 		
 		return p;

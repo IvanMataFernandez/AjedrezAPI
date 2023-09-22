@@ -12,6 +12,9 @@ public class Rey extends Pieza {
     	this.seMovio = false;
 
     }
+    
+    public boolean seMovio() {return this.seMovio;}
+    
 
     @Override
     public ArrayList<Tupla> movimientosValidos() {
@@ -43,45 +46,92 @@ public class Rey extends Pieza {
                 }
             } 
             
-            //FALTA COMPROBAR EL JAQUE MATE...
-            
-            // Enroque largo (0-0-0)
-            if (!seMovio) {
-                if (!j.hayPieza(y, 0) && !j.hayPieza(y, 1) && !j.hayPieza(y, 2) && !j.hayPieza(y, 3) &&
-                    j.getTablero()[y][4] instanceof Torre && !((Torre) j.getTablero()[y][4]).seMovio) {
-                    // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
-                    boolean caminoDespejado = true;
-                    for (int i = 1; i <= 3; i++) {
-                        if (j.hayPieza(y, i)) {
-                            caminoDespejado = false;
-                            break;
+            if (!this.seMovio && !super.enRangoDelRival()) {
+                // Enroque largo (0-0-0)
+        
+                if (j.estadoDeCasilla(y, 4) == 3 && !(j.seMovio(y, 4))) {
+                	
+                        // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
+                        // En ninguna casilla por la que pasa el rey debe estar en jaque
+                	
+                		boolean caminoDespejado = true;
+                		Movimiento mov;
+                		
+                        for (int i = 1; i <= 3; i++) {
+                        	
+                        	// Mirar si hay pieza
+                        	
+                            if (j.hayPieza(y, i)) {
+                                caminoDespejado = false;
+                                break;
+                            } else {
+                            	
+                            	// Mirar si estaría en jaque al mover ahí
+                            	
+                            	mov = new Movimiento(y, x, new Tupla(y, i, false));
+                            	mov.ejecutarMovimiento();
+                            	
+                            	if (super.enRangoDelRival()) {
+                                    caminoDespejado = false;
+                                    mov.deshacerMovimiento();
+                                    break;
+                            	} else {
+                                    mov.deshacerMovimiento();	
+                            	}
+
+                            	
+                            }
+                            
+                        }
+                        if (caminoDespejado) {
+                            movimientosValidos.add(new Tupla(y, x - 2,false)); // Enroque largo
                         }
                     }
-                    if (caminoDespejado) {
-                        movimientosValidos.add(new Tupla(y, x - 2,false)); // Enroque largo
-                    }
-                }
-            }
-
-            // Enroque corto (0-0)
-            if (!seMovio) {
-                if (!j.hayPieza(y, 5) && !j.hayPieza(y, 6) &&
-                    j.getTablero()[y][7] instanceof Torre && !((Torre) j.getTablero()[y][7]).seMovio)) {
-                    // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
-                    boolean caminoDespejado = true;
+                
+                if (j.estadoDeCasilla(y, 7) == 3 && !(j.seMovio(y, 7))) {
+                        // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
+                       
+            		boolean caminoDespejado = true;
+            		Movimiento mov;
+                	
                     for (int i = 5; i <= 6; i++) {
                         if (j.hayPieza(y, i)) {
                             caminoDespejado = false;
                             break;
+                        } else {
+                        	// Mirar si estaría en jaque al mover ahí
+                        	
+                        	mov = new Movimiento(y, x, new Tupla(y, i, false));
+                        	mov.ejecutarMovimiento();
+                        	
+                        	if (super.enRangoDelRival()) {
+                                caminoDespejado = false;
+                                mov.deshacerMovimiento();
+                                break;
+                        	} else {
+                                mov.deshacerMovimiento();	
+                        	}
                         }
                     }
                     if (caminoDespejado) {
                         movimientosValidos.add(new Tupla(y, x + 2,false)); // Enroque corto
                     }
-                }
+               }
+                
             }
+
     	 
         return movimientosValidos;
     }
 
+	public void procesarMovimiento(int f, int c) {
+
+		// Se está aceptando el movimiento, así que se habrá movido
+		
+		this.seMovio = true;
+	}
+
+	public String toString() {
+		return "k";
+	}
 }

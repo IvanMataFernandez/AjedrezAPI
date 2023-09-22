@@ -188,6 +188,20 @@ public class Pantalla extends JFrame {
 		
 	}
 
+	public void moverPieza(int f1, int c1, int f2, int c2) {
+		// Pre: (f1, c1) tiene pieza. (f2, c2) está en dominio del tablero
+		// Post: Mover la pieza (f1, c1) -> (f2, c2) en la interfaz
+		
+		Pieza p = this.tablero[f1][c1].quitarPieza();
+		this.tablero[f2][c2].ponerPieza(p);
+		
+	}
+	
+	public void quitarPieza(int f, int c) {
+		// Pre: f y c en casilla de tablero con una pieza 
+		// Post: se elimina visualmente la pieza
+		this.tablero[f][c].quitarPieza();
+	}
 	
 	
 	

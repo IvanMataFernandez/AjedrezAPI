@@ -160,6 +160,15 @@ public class Reina extends Pieza {
 	    
 	   return movimientosValidos;
     }
+
+	public void procesarMovimiento(int f, int c) {
+		// La reina no actualiza flags adicionales
+		
+	}
     
+	
+	public String toString() {
+		return "q";
+	}
 
 }

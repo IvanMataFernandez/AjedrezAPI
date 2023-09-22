@@ -10,4 +10,7 @@ public class Tupla {
 	public int getF() {return this.f;}
 	public int getC() {return this.c;}
 	public boolean come() {return this.come;}
+	
+	public boolean esEsteMovimiento(int f1, int c1) {return f1 == this.f && c1 == this.c;}
+	
 }

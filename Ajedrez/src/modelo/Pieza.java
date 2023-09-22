@@ -19,10 +19,38 @@ public abstract class Pieza {
         this.blancoYNoNegro = pBando;
         this.id = pTipo;
         ListaJugadores.getListaJugadores().obtenerJugador(this.blancoYNoNegro).añadirPieza(this);
+        	
+        
 
         
     }
-
+    
+    public Tupla encontrarTuplaConMovimiento(int f, int c) {
+    	
+    	// Pre: Existe una tupla que indica el movimiento legal a esa casilla
+    	// Post: Se ha encontrado la tupla que contiene el movimiento a (f, c)
+    	
+    	Tupla t = null;
+    	
+    	for (int i = 0; i != this.movimientosLegales.size(); i++) {
+    		t = this.movimientosLegales.get(i);
+    		if (t.esEsteMovimiento(f, c)) {
+    			break;
+    		}
+    	}
+    	return t;
+    }
+    
+    
+    public abstract void procesarMovimiento(int f, int c); // Procesar flags seMovio, vulnerableAEnPassant
+                                                           // Parámetros indican de donde mueve  
+ 
+    public void eliminarseDeListaDeJugador() {
+    	// Post: Se ha eliminado la ficha de la lista de piezas restantes
+    	
+    	ListaJugadores.getListaJugadores().obtenerJugador(this.blancoYNoNegro).eliminarPieza(this);
+    }
+    
  
     public ArrayList<Tupla> obtenerMovimientosLegales() {
     	// Pre: Se han recalculado los movimientos legales y actualizado el AL de movimientos posibles
@@ -37,28 +65,57 @@ public abstract class Pieza {
     }
     
     
+    private boolean enJaqueTrasMover(Tupla t) {
+    	// Post: Si tras mover está pieza así el rey de su equipo se quedaría en jaque, en 
+    	//       cuyo caso sería un movimiento ilegal
+    	
+    	
+    	// Generar el movimiento teorico a hacer
+    	Movimiento mov = new Movimiento(this.posY, this.posX, t);
+    	// Mover la pieza
+    	mov.ejecutarMovimiento();
+    	// Mirar si está en jaque ahora
+    	boolean jaque = ListaJugadores.getListaJugadores().obtenerJugador(this.blancoYNoNegro).reyEnJaque();
+    	// Volver a dejar el tablero como al principio
+    	mov.deshacerMovimiento();
+    	return jaque;
+    }
+    
     public boolean recalcularMovimientosLegales(Pieza[][] pPiezas) {
     	
     	// Post: Tiene al menos un movimiento legal, se han calculado y almacenado los movimientos
     	
+    	
     	this.movimientosLegales = this.movimientosValidos();
     	
-    	for (Tupla t: this.movimientosLegales) {
+    	int i = 0;
+    	int tam = this.movimientosLegales.size();
+    	
+    	while (i < tam) {
+    		Tupla t = this.movimientosLegales.get(i);
     		
-    		// SUSTITUIR LA CONDICION DEL IF POR LA COMPROBACION DE TRAS HACER EL MOVIMIENTO
-    		// SI EL REY DEL JUGADOR ESTA EN JAQUE
-    		
-    		if () { // Simular movimiento del tablero y deshacerlo en el metodo donde va el False
+    		if (this.enJaqueTrasMover(t)) {
     			this.movimientosLegales.remove(t);
+    			tam--;
     		}
-    		
-    		
+    		i++;
     	}
+    	
+
     	
     	return this.movimientosLegales.size() != 0;
     }
     
-    // Métodos abstractos que las demas piezas deben implementar
+    public boolean seMovio() {
+    	// Post: False para todo menos Rey y Torre (unicos casos para los que se usa). 
+    	// Torre y rey devuelven su caso real
+    	
+    	return false;
+    }
+    
+    
+    // Implementado en clases hijas, requiere su existencia aqui para la pieza imaginaria
+    
     public abstract ArrayList<Tupla> movimientosValidos();
 
 

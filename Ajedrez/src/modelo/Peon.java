@@ -108,4 +108,20 @@ public class Peon extends Pieza {
     public boolean vulnerableAEnPassant() {
     	return this.vulnerableAEnPassant;
     }
+
+	public void procesarMovimiento(int f, int c) {
+		// Comprobar si puede ser eliminado por enPassant
+		
+		// Si acaba de mover dos casillas adelante es vulnerable, si no, no
+		
+		this.vulnerableAEnPassant = Math.abs(super.getPosY() - f) == 2;
+		
+
+		
+	}
+	
+	public String toString() {
+		return "p";
+	}
+	
 }

@@ -40,4 +40,14 @@ public class Caballo extends Pieza {
 
     }
 
+	@Override
+	public void procesarMovimiento(int f, int c) {
+		// Caballo no procesa nada adicional
+	}
+	
+	public String toString() {
+		return "n";
+	}
+	
+
 }
