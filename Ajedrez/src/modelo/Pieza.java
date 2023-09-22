@@ -97,8 +97,10 @@ public abstract class Pieza {
     		if (this.enJaqueTrasMover(t)) {
     			this.movimientosLegales.remove(t);
     			tam--;
+    		} else {
+        		i++;
+    			
     		}
-    		i++;
     	}
     	
 

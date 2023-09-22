@@ -85,7 +85,7 @@ public class ControladorDeCasilla implements MouseListener {
 				// Mover las piezas necesarias en la interfaz
 				this.procesarInstruccionesAPantalla(mov.informarPantalla());
 				
-
+				// TODO: añadir sonido de mover la pieza aqui
 				
 				
 				p.desmarcarTodo();
