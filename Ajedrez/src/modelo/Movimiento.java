@@ -5,6 +5,7 @@ import controlador.ComandoAInterfazBorrarPieza;
 import controlador.ComandoAInterfazMoverPieza;
 import modelo.Pieza;
 import modelo.Tupla;
+import vista.PromocionPeonDialog;
 public class Movimiento {
 	
 	private int f1;
@@ -210,11 +211,53 @@ public class Movimiento {
     	if (this.piezaComida != null) {
     		this.piezaComida.eliminarseDeListaDeJugador();
     	}
-    	
-
+    	 boolean esBlanco = false; // Variable para determinar el color del peón
+    	 if (Juego.getJuego().getTablero()[this.f1][this.c1].tipo() == 1  && (this.f2 == 0 || this.f2 == 7)) { // si hay algun peon en algunos de los extremos...
+    		 esBlanco = (this.f2 != 0); // Si f2 es 0, el peón es negro; de lo contrario, es blanco
+    		 Pieza nuevaPiezaElegida = abrirVentanaSeleccionPromocion(this.f2, this.c2,esBlanco);
+    	        // Asigna la nueva pieza elegida como piezaMovida
+    	        if (nuevaPiezaElegida != null) {
+    	        	 Juego.getJuego().getTablero()[this.f2][this.c2]=nuevaPiezaElegida;
+    	        }
+    	 }
     	
     	// TODO: Manejar promociones de peon aquí
     }
+    
+    private Pieza abrirVentanaSeleccionPromocion(int fila, int columna,boolean esBlanco) {
+    	
+    	 PromocionPeonDialog dialog = new PromocionPeonDialog(null, true);
+    	    dialog.setVisible(true);
+    	    // Obtiene la elección del jugador desde la ventana de selección de promoción
+    	    int piezaElegida = dialog.getPiezaElegida();
+    	    // Crea la nueva pieza según la elección del jugador
+    	    Pieza nuevaPieza = null;
+    	    switch (piezaElegida) {
+    	        case 0: // Peón (valor que representa un peón en tu lógica)
+    	            nuevaPieza = new Peon(fila,columna,esBlanco);
+    	            break;
+    	        case 1: // Caballo
+    	            nuevaPieza = new Caballo(fila,columna,esBlanco);
+    	            break;
+    	        case 2: // Alfil
+    	            nuevaPieza = new Alfil(fila,columna,esBlanco);
+    	            break;
+    	        case 3: // Torre
+    	            nuevaPieza = new Torre(fila,columna,esBlanco);
+    	            break;
+    	        case 4: // Reina
+    	            nuevaPieza = new Reina(fila,columna,esBlanco,4);
+    	            break;
+    	        case 5: // Rey
+    	            nuevaPieza = new Rey(fila,columna,esBlanco);
+    	            break;
+    	        default:
+    	            // El jugador cerró la ventana de selección de promoción o hizo clic fuera de las opciones
+    	            break;
+    	    }
+
+    	    return nuevaPieza;
+    	}
     
 
 
