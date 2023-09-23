@@ -86,7 +86,8 @@ public class ControladorDeCasilla implements MouseListener {
 				this.procesarInstruccionesAPantalla(mov.informarPantalla());
 				
 				// TODO: añadir sonido de mover la pieza aqui
-				
+				ReproductorDeAudio reproductor = ReproductorDeAudio.getRep();
+				reproductor.reproducirSFX("movimiento");
 				
 				p.desmarcarTodo();
 				p.eliminarClick(2);

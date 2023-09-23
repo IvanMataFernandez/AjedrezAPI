@@ -8,7 +8,7 @@ import modelo.Reina;
 public class PromocionPeonDialog extends JDialog {
     private int piezaElegida;
     
- // Tipo de pieza: 0 -> Peon, 1 -> Caballo, 2 -> Alfil, 3 -> Torre, 4 -> Reina, 5 -> Rey
+    // Tipo de pieza: 0 -> Peon, 1 -> Caballo, 2 -> Alfil, 3 -> Torre, 4 -> Reina, 5 -> Rey
 
     public PromocionPeonDialog(Frame parent, boolean modal) {
         super(parent, modal);
@@ -59,7 +59,7 @@ public class PromocionPeonDialog extends JDialog {
         panel.add(caballoButton);
         panel.add(alfilButton);
 
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(null); // Centra en la pantalla principal
     }
 
     public int getPiezaElegida() {
