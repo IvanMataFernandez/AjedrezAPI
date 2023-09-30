@@ -203,6 +203,13 @@ public class Pantalla extends JFrame {
 		this.tablero[f][c].quitarPieza();
 	}
 	
+	public void ponerPieza(int f, int c, int tipo, boolean bando) {
+		// Pre: en (f,c) hay peon
+		// Post: Se sustituye por la pieza indicada 
+		
+		this.tablero[f][c].quitarPieza();
+		this.tablero[f][c].ponerPieza(new Pieza(tipo, bando));
+	}
 	
 	
 	

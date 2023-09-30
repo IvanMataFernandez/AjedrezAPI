@@ -1,11 +1,12 @@
 package modelo;
 import java.util.ArrayList;
 
+import controlador.ComandoAInterfazAñadirPieza;
 import controlador.ComandoAInterfazBorrarPieza;
 import controlador.ComandoAInterfazMoverPieza;
-import modelo.Pieza;
-import modelo.Tupla;
-import vista.PromocionPeonDialog;
+import controlador.ControladorDePromociones;
+
+// import vista.PromocionPeonDialog;
 public class Movimiento {
 	
 	private int f1;
@@ -54,7 +55,9 @@ public class Movimiento {
             if (matriz[this.f2][this.c2] != null) { // Eliminacion por poner tu ficha en la de el/ella
                 this.piezaComida = matriz[this.f2][this.c2];
                 matriz[this.f2][this.c2] = null;
+         
             } else { // Eliminacion enPassant
+            	
             	this.enPassant = true;
                 if (piezaAMover.pBando()) {
                     this.piezaComida = matriz[this.f2 + 1][this.c2]; // cuando blanco, el negro eliminado una fila abajo
@@ -133,8 +136,18 @@ public class Movimiento {
             
      		this.comandos.add(new ComandoAInterfazMoverPieza(fTorre, cTorre, fTorre, cTorreFin));
 
-
         }
+     		// Por ultimo, comprobar si se deberia realizar una promocion de peon
+     		
+
+       	 
+        if ((this.f2 == 0 || this.f2 == 7) && matriz[this.f2][this.c2].tipo() == 0) { // si hay algun peon en su ultima fila, se debe bufferear la instruccion de ascenderlo para despues
+       		// Añadir la instruccion de ascender para después, si el peon está en la fila 0 es blanco, si no, negro
+        	this.comandos.add(new ComandoAInterfazAñadirPieza(this.f2, this.c2, this.f2==0));
+       		 
+       		 
+
+       }
         
         
         
@@ -203,27 +216,65 @@ public class Movimiento {
     	// Post: Se ha confirmado el movimiento y ya no se puede deshacer, se han
     	//       eliminado las fichas comidas de la lista de su jugador
     	
-    	
+    	Juego j = Juego.getJuego();
     	// Actualizar flags de pieza
-    	Juego.getJuego().procesarMovimientoEnPieza(this.f1, this.c1, this.f2, this.c2);
+    	j.procesarMovimientoEnPieza(this.f1, this.c1, this.f2, this.c2);
     	
     	// Eliminar de la lista de piezas del jugador la pieza comida
     	if (this.piezaComida != null) {
     		this.piezaComida.eliminarseDeListaDeJugador();
     	}
+    	
+    	// Manejar promociones de peon
+    	
+    	for (ComandoAInterfazBorrarPieza comando : this.comandos) {
+    		if (comando instanceof ComandoAInterfazAñadirPieza) {
+    			
+    			// Crear nueva UI y esperar al input del usuario
+    			
+    			ControladorDePromociones con = new ControladorDePromociones();
+    			int tipo = con.elegirPromocion();
+    			
+    			// Actualizar la instrucción para mostrar en interfaz la pieza correcta
+    			ComandoAInterfazAñadirPieza comandoAñadir = (ComandoAInterfazAñadirPieza) comando;
+    			comandoAñadir.setTipo(tipo);
+    			
+    			// Actualizar la pieza
+    			
+    			j.eliminarPieza(comandoAñadir.getF(), comandoAñadir.getC());
+    			j.añadirPieza(comandoAñadir.getF(), comandoAñadir.getC(), comandoAñadir.esBlanco(), tipo);
+    			
+    		}
+
+       }
+    	/*
+    	 
+    	 
+    	
+    	 
+    	  
+    	  
+    	 
+    	
+    	 Pieza[][] matriz = Juego.getJuego().getTablero();
+
     	 boolean esBlanco = false; // Variable para determinar el color del peón
-    	 if (Juego.getJuego().getTablero()[this.f1][this.c1].tipo() == 1  && (this.f2 == 0 || this.f2 == 7)) { // si hay algun peon en algunos de los extremos...
-    		 esBlanco = (this.f2 != 0); // Si f2 es 0, el peón es negro; de lo contrario, es blanco
+    	 
+    	 if ((this.f2 == 0 || this.f2 == 7) && matriz[this.f2][this.c2].tipo() == 0) { // si hay algun peon en algunos de los extremos...
+    		 esBlanco = (this.f2 == 0); // Si f2 es 0, el peón es blanco; de lo contrario, es negro
+    		
+    		 
+    		 
+    		 
     		 Pieza nuevaPiezaElegida = abrirVentanaSeleccionPromocion(this.f2, this.c2,esBlanco);
     	        // Asigna la nueva pieza elegida como piezaMovida
     	        if (nuevaPiezaElegida != null) {
     	        	 Juego.getJuego().getTablero()[this.f2][this.c2]=nuevaPiezaElegida;
-    	        }
-    	 }
+    	        } 
+    	 } */
     	
-    	// TODO: Manejar promociones de peon aquí
     }
-    
+ /*   
     private Pieza abrirVentanaSeleccionPromocion(int fila, int columna,boolean esBlanco) {
     	
     	 PromocionPeonDialog dialog = new PromocionPeonDialog(null, true);
@@ -257,7 +308,7 @@ public class Movimiento {
     	    }
 
     	    return nuevaPieza;
-    	}
+    	} */
     
 
 

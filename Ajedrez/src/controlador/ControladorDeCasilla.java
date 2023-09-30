@@ -146,7 +146,12 @@ public class ControladorDeCasilla implements MouseListener {
 				p.moverPieza(com2.getF1(), com2.getC1(), com2.getF(), com2.getC());
 				
 				
-			// TODO: Implementar else if con ComandoAInterfazAñadirPieza aquí	
+				
+			} else if (com instanceof ComandoAInterfazAñadirPieza) {	
+				ComandoAInterfazAñadirPieza com2 = (ComandoAInterfazAñadirPieza) com;
+				p.ponerPieza(com2.getF(), com2.getC(), com2.getTipo(), com2.esBlanco());
+		    	
+		    	 
 				
 			} else {
 
@@ -157,6 +162,8 @@ public class ControladorDeCasilla implements MouseListener {
 		}
 
 	}
+	
+	
 	
 
 	@Override

@@ -176,7 +176,7 @@ public abstract class Pieza {
         if (bando) {
         	
             int[][] peonNegro = {
-            		{1, -1}, {1, 1}
+            		{-1, -1}, {-1, 1}
                 };        	
             
             for (int[] peligro : peonNegro) {
@@ -194,7 +194,7 @@ public abstract class Pieza {
         } else {
         	
             int[][] peonBlanco = {
-            		{-1, -1}, {-1, 1}
+            		{1, -1}, {1, 1}
                 }; 
             
             for (int[] peligro : peonBlanco) {
@@ -202,7 +202,7 @@ public abstract class Pieza {
                 int x = this.posX + peligro[1];
 
                 if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-                   if (j.estadoDeCasilla(y, x) == 5 && j.esBlanco(y, x) != bando) {
+                   if (j.estadoDeCasilla(y, x) == 0 && j.esBlanco(y, x) != bando) {
                         return true;
                     }
                 }

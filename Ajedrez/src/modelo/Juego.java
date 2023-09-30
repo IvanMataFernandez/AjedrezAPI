@@ -142,7 +142,15 @@ public class Juego {
 		
 	}
 
-
+	// Usado para borrar peones en promociones
+	public void eliminarPieza(int f, int c) {
+		// Pre: Hay pieza en (f, c)
+		this.tablero[f][c].eliminarseDeListaDeJugador();
+		this.tablero[f][c] = null;
+		
+		
+	}
+	
     public void añadirPieza(int f, int c, boolean pBlanco, int pTipo) {
     	
     	
@@ -178,11 +186,7 @@ public class Juego {
     }
     
 	
-    public void eliminarPieza(int f, int c) {
-    	// Para eliminar las piezas imaginarias creadas
-    	
-    	this.tablero[f][c] = null;
-    }
+
     
 	private void inicializarTablero() {
 		// Post: Generar tablero con la POV del jugador blanco, (0,0) es arriba izquierda (7,0) abajo izquierda
@@ -262,9 +266,10 @@ public class Juego {
 		}
 		
 		
-
+		System.out.println("GG Fin de partida");
 		
 		if (j.reyEnJaque()) {
+			
 			
 			if (j.esBlanco()) {
 				return Juego.VICTORIA_NEGRO ;
