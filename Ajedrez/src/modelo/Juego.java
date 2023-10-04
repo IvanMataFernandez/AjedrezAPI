@@ -1,6 +1,8 @@
 package modelo;
 import java.util.ArrayList;
 
+import vista.Resultado;
+
 
 public class Juego {
 
@@ -279,8 +281,15 @@ public class Juego {
 			}
 			
 		} else {
+			
 			return Juego.EMPATE;
+			
 		}
+		
+		
+		
+		
+		
 		
 		
 		

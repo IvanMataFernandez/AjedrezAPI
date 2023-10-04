@@ -1,6 +1,6 @@
 package controlador;
 
-import vista.Pantalla;
+import vista.*;
 
 public class Dibujador {
 
@@ -17,6 +17,11 @@ public class Dibujador {
 	
 	public void inicializarPantalla() {
 		Pantalla.getPantalla();
+	}
+	
+	public void inicializarResultado() {
+		Resultado.getResultado();
+		
 	}
 	
 }
