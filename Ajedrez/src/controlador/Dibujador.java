@@ -19,8 +19,8 @@ public class Dibujador {
 		Pantalla.getPantalla();
 	}
 	
-	public void inicializarResultado() {
-		Resultado.getResultado();
+	public void inicializarResultado(int pResultado) {
+		Resultado.getResultado(pResultado);
 		
 	}
 	

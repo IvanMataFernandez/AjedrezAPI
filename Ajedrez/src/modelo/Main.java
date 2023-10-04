@@ -21,12 +21,8 @@ public class Main {
 		 	implementar)
 		 	
 		 	IMPLEMENTAR:
-		 	- Programar check para promocion de peones (En Movimiento)
-            - Programar la clase ComandoAInterfazAñadirPieza extendiendo del de Borrar
-              para poder dibujar nuevas piezas ascendidas de peon en la interfaz
-            - Añadir sonido de mover pieza al movimiento
-            TESTEAR:
-            - Debuggear casos críticos		 	
+		 	- La ventana enseñado fin de partida, las puntuaciones (victorias)
+		 	  respectivas y dar la opcion de revancha	 	
 		 	
 		    
 		  
@@ -35,8 +31,8 @@ public class Main {
 		Dibujador dib = Dibujador.getDibujador();
 		Juego j = Juego.getJuego();
 		//dib.inicializarPantalla();
-		dib.inicializarResultado();
-		j.jugar();
+	//	j.jugar();
+		dib.inicializarResultado(1);
 		
 		
 

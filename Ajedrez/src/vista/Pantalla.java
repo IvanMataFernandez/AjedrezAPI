@@ -47,21 +47,7 @@ public class Pantalla extends JFrame {
 		return this.tablero[f][c];
 		
 	}
-	
-	private void metodoParaDebuggear() {
-		super.setVisible(true);
-		super.setBounds(0, 0, 512, 512);
-		super.setResizable(false);
-		JPanel a = new JPanel(null);
-		a.setBackground(Color.red);
-		a.setOpaque(true);
-		a.setBounds(0, 0, 512, 512);
-		super.setContentPane(a);
-		JLabel b = new JLabel();
-		b.setBounds(0, 0, 64, 64);
-		b.setIcon(new ImageIcon(".\\piezaspng\\alfilb.png"));
-		a.add(b);
-	}
+
 	
 	private void inicializarTablero() {
 		
