@@ -41,6 +41,7 @@ public class ControladorDeCasilla implements MouseListener {
 
 		
 		if (num == 1) {
+			
 			if (j.hayPieza(f, c) && !(j.esBlanco(f, c) ^ l.esTurnoDeBlanco())) { 
 
 				ArrayList<Tupla> casillasPosibles = j.obtenerMovimientosLegalesDe(f, c);

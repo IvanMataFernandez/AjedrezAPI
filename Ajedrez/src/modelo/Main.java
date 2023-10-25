@@ -1,8 +1,6 @@
 package modelo;
 
-import controlador.*;
-import vista.Pieza;
-import vista.ReproductorDeAudio;
+
 
 public class Main {
 

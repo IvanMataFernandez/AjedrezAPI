@@ -6,6 +6,7 @@ import controlador.ControladorDePromociones;
 
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class PromocionPeonDialog extends JDialog {
     private int piezaElegida;
     private ControladorDePromociones llamadoDesde;

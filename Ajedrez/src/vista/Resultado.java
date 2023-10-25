@@ -9,6 +9,7 @@ import javax.swing.*;
 import controlador.ControladorDeBotonDeFinDeJuego;
 
 
+@SuppressWarnings("serial")
 public class Resultado extends JFrame{
 	
 	

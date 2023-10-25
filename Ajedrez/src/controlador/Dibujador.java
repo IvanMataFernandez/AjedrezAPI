@@ -24,7 +24,7 @@ public class Dibujador {
 	}
 	
 	public void inicializarResultado(int pResultado, int numVictoriasBlanco, int numVictoriasNegro) {
-		Resultado ventana = Resultado.crearVentanaResultados(pResultado, numVictoriasBlanco, numVictoriasNegro);
+		Resultado.crearVentanaResultados(pResultado, numVictoriasBlanco, numVictoriasNegro);
 		
 	}
 	
