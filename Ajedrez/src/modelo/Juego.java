@@ -1,6 +1,7 @@
 package modelo;
 import java.util.ArrayList;
 
+import controlador.ControladorDeReproductorDeAudio;
 import controlador.Dibujador;
 
 
@@ -251,7 +252,8 @@ public class Juego {
 		
 		Dibujador dib = Dibujador.getDibujador();
 		ListaJugadores l = ListaJugadores.getListaJugadores();
-
+		ControladorDeReproductorDeAudio r = new ControladorDeReproductorDeAudio();
+		
 		
 		boolean jugar = true;
 		
@@ -273,7 +275,7 @@ public class Juego {
 			// Sumar victoria a quien ganó (o nada si fue empate) y reiniciar las piezas de cada jugador
 			
 			l.procesarResultado(resultado);
-			
+			r.reproducirAudio("fin_partida");
 			// Crear la interfaz del menú de resultados de partida y esperar a input de botón
 			
 			this.respuestaTrasFinDeJuego = -1;
