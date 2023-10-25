@@ -276,6 +276,8 @@ public class Juego {
 			
 			// Crear la interfaz del menú de resultados de partida y esperar a input de botón
 			
+			
+			
 			this.respuestaTrasFinDeJuego = -1;
 			dib.inicializarResultado(resultado, l.obtenerVictoriasDe(true), l.obtenerVictoriasDe(false));
 			
