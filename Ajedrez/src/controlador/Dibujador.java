@@ -16,11 +16,15 @@ public class Dibujador {
 	}
 	
 	public void inicializarPantalla() {
-		Pantalla.getPantalla();
+		Pantalla.getPantalla().inicializarPantalla();;
 	}
 	
-	public void inicializarResultado(int pResultado) {
-		Resultado.getResultado(pResultado);
+	public void matarPantalla() {
+		Pantalla.getPantalla().dispose();
+	}
+	
+	public void inicializarResultado(int pResultado, int numVictoriasBlanco, int numVictoriasNegro) {
+		Resultado ventana = Resultado.crearVentanaResultados(pResultado, numVictoriasBlanco, numVictoriasNegro);
 		
 	}
 	
