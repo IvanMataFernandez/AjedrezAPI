@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -28,10 +27,14 @@ public class Pantalla extends JFrame {
 	
 	private Pantalla () {
 	//	this.metodoParaDebuggear();
+
+		
+		
+	}
+	
+	public void inicializarPantalla() {
 		this.inicializarTablero();
 		this.colocarPiezas();
-		
-		
 	}
 	
 	public static Pantalla getPantalla() {
@@ -47,6 +50,8 @@ public class Pantalla extends JFrame {
 		return this.tablero[f][c];
 		
 	}
+	
+
 
 	
 	private void inicializarTablero() {

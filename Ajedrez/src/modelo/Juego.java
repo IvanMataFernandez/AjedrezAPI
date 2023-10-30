@@ -1,6 +1,9 @@
 package modelo;
 import java.util.ArrayList;
 
+import controlador.ControladorDeReproductorDeAudio;
+import controlador.Dibujador;
+
 
 
 public class Juego {
@@ -15,6 +18,8 @@ public class Juego {
 	
 	private boolean esperandoMovimiento;
 	
+	private int respuestaTrasFinDeJuego; // -1 -> En espera | 0 -> Salir | 1 -> Jugar de nuevo
+	
 	private Juego() {
 		// Constructora privada MAE
 		
@@ -27,6 +32,14 @@ public class Juego {
 		}
 		return Juego.j;
 	
+	}
+	
+	
+	public void setRespuestaTrasJuego(int valor) {
+		
+		// Pre:  0 -> Salir | 1 -> Jugar de nuevo
+		
+		this.respuestaTrasFinDeJuego = valor;
 	}
 	
 	private void imprimirTablero() {
@@ -234,12 +247,62 @@ public class Juego {
   	    }
 }
 	
-	public int jugar() {
+	
+	public void iniciarPrograma() {
+		
+		Dibujador dib = Dibujador.getDibujador();
+		ListaJugadores l = ListaJugadores.getListaJugadores();
+		ControladorDeReproductorDeAudio r = new ControladorDeReproductorDeAudio();
+		
+		
+		boolean jugar = true;
+		
+		while (jugar) {
+			
+			// Inicializar la interfaz del tablero
+			
+			dib.inicializarPantalla();
+			
+			// Jugar
+			
+			int resultado = this.jugar();
+			
+			
+			// Quitar la interfaz del tablero
+			
+			dib.matarPantalla();
+			
+			// Sumar victoria a quien ganó (o nada si fue empate) y reiniciar las piezas de cada jugador
+			
+			l.procesarResultado(resultado);
+			r.reproducirAudio("fin_partida");
+			// Crear la interfaz del menú de resultados de partida y esperar a input de botón
+			
+			
+			
+			this.respuestaTrasFinDeJuego = -1;
+			dib.inicializarResultado(resultado, l.obtenerVictoriasDe(true), l.obtenerVictoriasDe(false));
+			
+			
+			while (this.respuestaTrasFinDeJuego == -1) {
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {}
+			}
+			
+			jugar = this.respuestaTrasFinDeJuego == 1;
+			
+			
+		}
+	}
+	
+	private int jugar() {
 		
 		// Post: 0 -> Empate | 1 -> Blanco | 2 -> Negro
 		
 		
 		ListaJugadores l = ListaJugadores.getListaJugadores();
+		l.reiniciarPunteroDeJugadores();
 		Jugador j = l.obtenerJugadorActual();
 		
 		this.inicializarTablero();

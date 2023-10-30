@@ -1,8 +1,6 @@
 package modelo;
 
-import controlador.*;
-import vista.Pieza;
-import vista.ReproductorDeAudio;
+
 
 public class Main {
 
@@ -28,11 +26,20 @@ public class Main {
 		  
 		 */
 		
+<<<<<<< HEAD
 		Dibujador dib = Dibujador.getDibujador();
 		Juego j = Juego.getJuego();
 		dib.inicializarPantalla();
 		j.jugar();
 		dib.inicializarResultado(1);
+=======
+
+		
+		
+		
+		Juego.getJuego().iniciarPrograma();
+
+>>>>>>> branch 'Develop' of https://github.com/IvanMataFernandez/AjedrezAPI.git
 		
 		
 

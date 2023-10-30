@@ -12,7 +12,9 @@ public class ControladorDePromociones {
 	public int elegirPromocion() {
 		
 		this.promocionElegida = -1;
-    	PromocionPeonDialog dialog = new PromocionPeonDialog(null, true, this);
+    	
+		@SuppressWarnings("unused")
+		PromocionPeonDialog dialog = new PromocionPeonDialog(null, true, this);
     	
     	while (this.promocionElegida == -1) {
     		

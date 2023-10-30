@@ -32,6 +32,11 @@ public class Jugador {
 		
 	}
 	
+	public void eliminarTodasSusPiezas() {
+		this.susPiezas.clear();
+	}
+	
+	
 	public void eliminarPieza(Pieza pPieza) {
 		// Pre: Una pieza existente de este jugador
 		// Post: Quitarle la pieza
@@ -58,6 +63,14 @@ public class Jugador {
 	
 	public boolean reyEnJaque() {
 		return this.rey.enRangoDelRival();
+	}
+	
+	public void sumarUnaVictoria() {
+		this.victorias = this.victorias + 1;
+	}
+	
+	public int getVictorias() {
+		return this.victorias;
 	}
 	
 

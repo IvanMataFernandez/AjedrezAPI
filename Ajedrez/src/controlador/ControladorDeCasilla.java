@@ -41,6 +41,7 @@ public class ControladorDeCasilla implements MouseListener {
 
 		
 		if (num == 1) {
+			
 			if (j.hayPieza(f, c) && !(j.esBlanco(f, c) ^ l.esTurnoDeBlanco())) { 
 
 				ArrayList<Tupla> casillasPosibles = j.obtenerMovimientosLegalesDe(f, c);
@@ -85,8 +86,8 @@ public class ControladorDeCasilla implements MouseListener {
 				// Mover las piezas necesarias en la interfaz
 				this.procesarInstruccionesAPantalla(mov.informarPantalla());
 				
-				ReproductorDeAudio reproductor = ReproductorDeAudio.getRep();
-				reproductor.reproducirSFX("movimiento");
+				ControladorDeReproductorDeAudio reproductor = new ControladorDeReproductorDeAudio();
+				reproductor.reproducirAudio("movimiento");
 				
 				p.desmarcarTodo();
 				p.eliminarClick(2);
