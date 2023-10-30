@@ -29,7 +29,7 @@ public class Pieza extends JLabel {
 		case 1: 
 			
 			if (pBlanco) {
-				rutaCompleta = RUTA_IMAGENES + "caballon.png";
+				rutaCompleta = RUTA_IMAGENES + "caballob.png";
 		
 			} else {
 				rutaCompleta = RUTA_IMAGENES + "caballod.png";

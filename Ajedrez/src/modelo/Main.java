@@ -30,8 +30,8 @@ public class Main {
 		
 		Dibujador dib = Dibujador.getDibujador();
 		Juego j = Juego.getJuego();
-		//dib.inicializarPantalla();
-	//	j.jugar();
+		dib.inicializarPantalla();
+		j.jugar();
 		dib.inicializarResultado(1);
 		
 		

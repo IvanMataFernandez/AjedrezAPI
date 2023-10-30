@@ -13,9 +13,9 @@ public class Casilla extends JPanel {
 	public Casilla (int f, int c) {
 		
 		if ((f+c)%2==1) {
-			super.setBackground(Color.BLACK);
-		} else {
 			super.setBackground(Color.WHITE);
+		} else {
+			super.setBackground(new Color(54, 55, 162));
 		}
 		
 		super.setBounds(f*64, c*64, 64, 64);
@@ -78,9 +78,9 @@ public class Casilla extends JPanel {
 	
 	public void desmarcar() {
 		if ((f+c)%2==1) {
-			super.setBackground(Color.BLACK);
-		} else {
 			super.setBackground(Color.WHITE);
+		} else {
+			super.setBackground(new Color(54, 55, 162));
 		}
 		
 		
