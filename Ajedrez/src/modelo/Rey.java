@@ -18,12 +18,10 @@ public class Rey extends Pieza {
 
     @Override
     public ArrayList<Tupla> movimientosValidos() {
-        // Implementa las reglas de movimiento del rey aquí
         // El rey puede moverse en cualquier dirección, pero solo una casilla a la vez.
         // Debes verificar si el movimiento es válido según las reglas del ajedrez.
         // Retorna true si es válido, false en caso contrario.
-        // Aquí puedes incluir la lógica específica del movimiento del rey.
-    	
+       
     	
     	ArrayList<Tupla> movimientosValidos = new ArrayList<>();
         int x = super.getPosX();
@@ -49,7 +47,7 @@ public class Rey extends Pieza {
             if (!this.seMovio && !super.enRangoDelRival()) {
                 // Enroque largo (0-0-0)
         
-                if (j.estadoDeCasilla(y, 4) == 3 && !(j.seMovio(y, 4))) {
+                if (j.estadoDeCasilla(y, 0) == 3 && !(j.seMovio(y, 4))) {
                 	
                         // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
                         // En ninguna casilla por la que pasa el rey debe estar en jaque
