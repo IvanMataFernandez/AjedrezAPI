@@ -12,10 +12,7 @@ import controlador.ControladorDeBotonDeFinDeJuego;
 @SuppressWarnings("serial")
 public class Resultado extends JFrame{
 	
-	
-	// TODO: La ventana para mostrar victoria
-	//       mostrar cantidad de victorias y dar opcion de revancha
-	
+
 	private static Resultado r;
 	private JPanel panelPrincipal;
 	
@@ -28,7 +25,6 @@ public class Resultado extends JFrame{
         super.setTitle("Resultado");
         super.setSize(500, 500);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  //      super.setResizable(false);
         super.setLocationRelativeTo(null);
 
 		this.panelPrincipal = new JPanel();

@@ -12,7 +12,7 @@ public class Casilla extends JPanel {
 	
 	public Casilla (int f, int c) {
 		
-		if ((f+c)%2==1) {
+		if ((f+c)%2==0) {
 			super.setBackground(Color.WHITE);
 		} else {
 			super.setBackground(new Color(54, 55, 162));
