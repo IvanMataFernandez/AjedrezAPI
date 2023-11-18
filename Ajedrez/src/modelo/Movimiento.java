@@ -81,7 +81,6 @@ public class Movimiento {
         }
 
         // Mover la pieza
-        System.out.println(this.f1+","+this.c1+" --> "+this.f2+","+this.c2);
 
         matriz[piezaAMover.getPosY()][piezaAMover.getPosX()] = null;
         matriz[this.f2][this.c2] = piezaAMover;
@@ -157,7 +156,6 @@ public class Movimiento {
 
     	Pieza[][] matriz = Juego.getJuego().getTablero();
 
-        System.out.println(this.f1+","+this.c1+" <-- "+this.f2+","+this.c2);
 
     	
     	

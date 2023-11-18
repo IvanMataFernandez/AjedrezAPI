@@ -42,10 +42,14 @@ public class Juego {
 		this.respuestaTrasFinDeJuego = valor;
 	}
 	
+	@SuppressWarnings("unused")
 	private void imprimirTablero() {
 		// Función para debuggear, enseña el estado del tablero desde el punto
 		// de vista del motor del juego. Las piezas usan su letra de denotación oficial en inglés
 		
+		
+		System.out.println();
+	
 		for (int f = 0; f != 8; f++) {
 			for (int c = 0; c != 8; c++) {
 				if (this.tablero[f][c] == null) {
@@ -309,7 +313,7 @@ public class Juego {
 		
 
 		while (j.recalcularMovimientosLegales(this.tablero)) {
-			this.imprimirTablero();
+	//		this.imprimirTablero();
 			this.checkPiezas();
 			this.esperandoMovimiento = true;
 			
@@ -330,7 +334,6 @@ public class Juego {
 		}
 		
 		
-		System.out.println("GG Fin de partida");
 		
 		if (j.reyEnJaque()) {
 			

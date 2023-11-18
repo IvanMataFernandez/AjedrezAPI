@@ -1,6 +1,5 @@
 package modelo;
 
-import controlador.Dibujador;
 
 public class Main {
 
