@@ -43,7 +43,7 @@ public class Juego {
 	}
 	
 	@SuppressWarnings("unused")
-	private void imprimirTablero() {
+	public void imprimirTablero() {
 		// Función para debuggear, enseña el estado del tablero desde el punto
 		// de vista del motor del juego. Las piezas usan su letra de denotación oficial en inglés
 		
@@ -313,7 +313,6 @@ public class Juego {
 		
 
 		while (j.recalcularMovimientosLegales(this.tablero)) {
-	//		this.imprimirTablero();
 			this.checkPiezas();
 			this.esperandoMovimiento = true;
 			
@@ -330,6 +329,7 @@ public class Juego {
 			
 			l.cambiarJugador();
 			j = l.obtenerJugadorActual();
+			this.imprimirTablero();
 	
 		}
 		

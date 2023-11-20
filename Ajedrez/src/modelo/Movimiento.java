@@ -6,8 +6,9 @@ import controlador.ComandoAInterfazBorrarPieza;
 import controlador.ComandoAInterfazMoverPieza;
 import controlador.ControladorDePromociones;
 
-// import vista.PromocionPeonDialog;
 public class Movimiento {
+	
+	
 	
 	private int f1;
  	private int c1;

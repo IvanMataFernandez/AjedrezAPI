@@ -56,6 +56,7 @@ public class Jugador {
 			puedeMover = pieza.recalcularMovimientosLegales(pMatriz) || puedeMover;
 		}
 		
+		
 		return puedeMover;
 		
 		

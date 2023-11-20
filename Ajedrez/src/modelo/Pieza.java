@@ -69,15 +69,28 @@ public abstract class Pieza {
     	// Post: Si tras mover está pieza así el rey de su equipo se quedaría en jaque, en 
     	//       cuyo caso sería un movimiento ilegal
     	
-    	
+
     	// Generar el movimiento teorico a hacer
     	Movimiento mov = new Movimiento(this.posY, this.posX, t);
+    	
+
+    	
     	// Mover la pieza
     	mov.ejecutarMovimiento();
+
+    	
     	// Mirar si está en jaque ahora
     	boolean jaque = ListaJugadores.getListaJugadores().obtenerJugador(this.blancoYNoNegro).reyEnJaque();
+    	
     	// Volver a dejar el tablero como al principio
     	mov.deshacerMovimiento();
+    	
+    	
+    	
+    	
+
+
+    	
     	return jaque;
     }
     
@@ -86,7 +99,11 @@ public abstract class Pieza {
     	// Post: Tiene al menos un movimiento legal, se han calculado y almacenado los movimientos
     	
     	
+
+    	
     	this.movimientosLegales = this.movimientosValidos();
+    	
+
     	
     	int i = 0;
     	int tam = this.movimientosLegales.size();

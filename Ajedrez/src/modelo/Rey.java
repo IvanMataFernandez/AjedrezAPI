@@ -23,6 +23,8 @@ public class Rey extends Pieza {
         // Retorna true si es válido, false en caso contrario.
        
     	
+
+    	
     	ArrayList<Tupla> movimientosValidos = new ArrayList<>();
         int x = super.getPosX();
         int y= super.getPosY();
@@ -47,7 +49,8 @@ public class Rey extends Pieza {
             if (!this.seMovio && !super.enRangoDelRival()) {
                 // Enroque largo (0-0-0)
         
-                if (j.estadoDeCasilla(y, 0) == 3 && !(j.seMovio(y, 4))) {
+            	
+                if (j.estadoDeCasilla(y, 0) == 3 && !(j.seMovio(y, 0))) {
                 	
                         // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
                         // En ninguna casilla por la que pasa el rey debe estar en jaque
@@ -55,10 +58,47 @@ public class Rey extends Pieza {
                 		boolean caminoDespejado = true;
                 		Movimiento mov;
                 		
+                		// Mirar si hay piecas por el medio
+                		
+                		for (int i = 1; i <= 3; i++) {
+                            if (j.hayPieza(y, i)) {
+                                caminoDespejado = false;
+                                break;
+                            }               			
+                		}
+                		
+            			// Mirar si estaría en jaque al mover ahí
+                		
+                		if (caminoDespejado) {
+                    		for (int i = 1; i <= 3; i++) {
+                            
+                            	
+                            	mov = new Movimiento(y, x, new Tupla(y, i, false));
+                            	mov.ejecutarMovimiento();
+
+                            	if (super.enRangoDelRival()) {
+                                    caminoDespejado = false;
+                                    mov.deshacerMovimiento();
+                                    break;
+                            	} else {
+                                    mov.deshacerMovimiento();	
+                            	}
+                                }               			
+                    		                			
+                		}
+                		
+                		// Si no jaque + via libre = permitir enroque
+                		
+                		if (caminoDespejado) {
+                            movimientosValidos.add(new Tupla(y, x - 2,false)); // Enroque largo	
+                		}
+                		
+                		 /*
+                		
                         for (int i = 1; i <= 3; i++) {
                         	
                         	// Mirar si hay pieza
-                        	
+
                             if (j.hayPieza(y, i)) {
                                 caminoDespejado = false;
                                 break;
@@ -68,7 +108,7 @@ public class Rey extends Pieza {
                             	
                             	mov = new Movimiento(y, x, new Tupla(y, i, false));
                             	mov.ejecutarMovimiento();
-                            	
+
                             	if (super.enRangoDelRival()) {
                                     caminoDespejado = false;
                                     mov.deshacerMovimiento();
@@ -84,13 +124,53 @@ public class Rey extends Pieza {
                         if (caminoDespejado) {
                             movimientosValidos.add(new Tupla(y, x - 2,false)); // Enroque largo
                         }
+                        */
                     }
                 
+                
+                // Enroque corto (0-0)
                 if (j.estadoDeCasilla(y, 7) == 3 && !(j.seMovio(y, 7))) {
                         // Verificar si el camino entre el rey y la torre está despejado y la torre no se ha movido
                        
             		boolean caminoDespejado = true;
             		Movimiento mov;
+            		
+            		// Mirar si hay piecas por el medio
+            		
+            		for (int i = 5; i <= 6; i++) {
+                        if (j.hayPieza(y, i)) {
+                            caminoDespejado = false;
+                            break;
+                        }               			
+            		}
+            		
+        			// Mirar si estaría en jaque al mover ahí
+            		
+            		if (caminoDespejado) {
+                		for (int i = 5; i <= 6; i++) {
+                        
+                        	
+                        	mov = new Movimiento(y, x, new Tupla(y, i, false));
+                        	mov.ejecutarMovimiento();
+
+                        	if (super.enRangoDelRival()) {
+                                caminoDespejado = false;
+                                mov.deshacerMovimiento();
+                                break;
+                        	} else {
+                                mov.deshacerMovimiento();	
+                        	}
+                            }               			
+                		                			
+            		}
+            		
+            		// Si no jaque + via libre = permitir enroque
+            		
+            		if (caminoDespejado) {
+                        movimientosValidos.add(new Tupla(y, x + 2,false)); // Enroque largo	
+            		}
+            		
+            		/*
                 	
                     for (int i = 5; i <= 6; i++) {
                         if (j.hayPieza(y, i)) {
@@ -113,7 +193,7 @@ public class Rey extends Pieza {
                     }
                     if (caminoDespejado) {
                         movimientosValidos.add(new Tupla(y, x + 2,false)); // Enroque corto
-                    }
+                    } */
                }
                 
             }
