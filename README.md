@@ -11,4 +11,4 @@ Se puede mover el directorio jar por comodidad, PERO NO SEPARAR EL JAR DE SU CAR
 AUDIO E IMAGENES RESPECTIVAS.
 
 Para ejecutar el .jar puedes pinchar sobre él o por línea de comandos usando
-$ jave -jar ajedrez.jar  (requiere tener jave instalado en el ordenador)
+$ java -jar ajedrez.jar  (requiere tener java instalado en el ordenador)
