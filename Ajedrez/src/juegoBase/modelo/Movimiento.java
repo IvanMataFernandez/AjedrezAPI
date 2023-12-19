@@ -2,12 +2,10 @@ package juegoBase.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import juegoBase.controlador.ComandoAInterfazAñadirPieza;
+import juegoBase.controlador.ComandoAInterfazAscension;
 import juegoBase.controlador.ComandoAInterfazBorrarPieza;
 import juegoBase.controlador.ComandoAInterfazMoverPieza;
-import juegoBase.controlador.ControladorDePromociones;
 
-@SuppressWarnings("serial")
 public class Movimiento implements Serializable {
 	
 	
@@ -145,8 +143,7 @@ public class Movimiento implements Serializable {
        	 
         if ((this.f2 == 0 || this.f2 == 7) && matriz[this.f2][this.c2].tipo() == 0) { // si hay algun peon en su ultima fila, se debe bufferear la instruccion de ascenderlo para despues
        		// Añadir la instruccion de ascender para después, si el peon está en la fila 0 es blanco, si no, negro
-        	this.comandos.add(new ComandoAInterfazAñadirPieza(this.f2, this.c2, this.f2==0));
-       		 
+        	this.comandos.add(new ComandoAInterfazAscension(this.f2, this.c2, this.f2==0));
        		 
 
        }
@@ -226,28 +223,7 @@ public class Movimiento implements Serializable {
     		this.piezaComida.eliminarseDeListaDeJugador();
     	}
     	
-    	// Manejar promociones de peon
-    	
-    	for (ComandoAInterfazBorrarPieza comando : this.comandos) {
-    		if (comando instanceof ComandoAInterfazAñadirPieza) {
-    			
-    			// Crear nueva UI y esperar al input del usuario
-    			
-    			ControladorDePromociones con = new ControladorDePromociones();
-    			int tipo = con.elegirPromocion();
-    			
-    			// Actualizar la instrucción para mostrar en interfaz la pieza correcta
-    			ComandoAInterfazAñadirPieza comandoAñadir = (ComandoAInterfazAñadirPieza) comando;
-    			comandoAñadir.setTipo(tipo);
-    			
-    			// Actualizar la pieza
-    			
-    			j.eliminarPieza(comandoAñadir.getF(), comandoAñadir.getC());
-    			j.añadirPieza(comandoAñadir.getF(), comandoAñadir.getC(), comandoAñadir.esBlanco(), tipo);
-    			
-    		}
 
-       }
     	
   
     	

@@ -1,6 +1,8 @@
 package juegoBase.controlador;
 
-public class ComandoAInterfazBorrarPieza {
+import java.io.Serializable;
+
+public class ComandoAInterfazBorrarPieza implements Serializable {
 
 	private int f; // Fila sobre opera
 	private int c; // Columna sobre opera

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import juegoBase.controlador.ComandoAInterfazAscension;
+import juegoBase.controlador.ComandoAInterfazAñadirPieza;
+import juegoBase.controlador.ComandoAInterfazBorrarPieza;
 import juegoBase.modelo.Jugador;
 import juegoBase.modelo.ListaJugadores;
 import juegoBase.modelo.MainLoop;
@@ -47,11 +50,11 @@ public class Servidor {
 		
 		// Establecer las conexiones TCP/IP con ambos jugadores
 		// Esperar uno a uno a los jugadores y crear las conexiones (objetos input y output para leer / escribir mensajes al otro)
-		
-		for (int jug = 1; jug != 3; jug ++) {
+		try {
+
+			for (int jug = 1; jug != 3; jug ++) {
 			
-			System.out.println("Esperando a jugador "+jug);
-			try {
+				System.out.println("Esperando a jugador "+jug);
 				
 				// Aceptar conexion
 				
@@ -73,24 +76,27 @@ public class Servidor {
                 this.salidas[jug-1].flush();
 
 
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			} 
+
+		
 			
-			
+
 			
 
 		}
+			this.jugar();
+		
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		} 
 
-		this.jugar();
 	}
 	
 
 	
 	
 	
-	private int jugar() {
+	private int jugar() throws IOException, ClassNotFoundException, InterruptedException {
 		
 		// Post: 0 -> Empate | 1 -> Blanco | 2 -> Negro
 		
@@ -113,6 +119,8 @@ public class Servidor {
 		
 		while (j.recalcularMovimientosLegales(tab.getTablero())) {
 			
+			// Mostrar estado de partida por terminal
+			
 			System.out.println("Turno de Jugador "+turno%2+1+ ". Estado de juego:");
 			
 			tab.imprimirTablero();
@@ -121,30 +129,69 @@ public class Servidor {
 			// Obtener dichos movimientos posibles y mapearlos a un objeto para enviarlo por red
 			
 			ArrayList<MovimientosPosibleDePieza> movimientos = this.generarJugadasPosibles(j);
-
+	
+			// Enviar al jugador las jugadas posibles por red
 			
-			try {
+			this.salidas[turno%2].writeObject(movimientos);
 				
-				// Enviar al jugador las jugadas posibles por red
-				this.salidas[turno%2].writeObject(movimientos);
-				
-				System.out.println();
-				System.out.println("Esperando respuesta del jugador...");
-				
-				// Recoger la jugada elegida
-				 mov = (Movimiento) this.entradas[turno%2].readObject();
+			System.out.println();
+		    System.out.println("Esperando respuesta del jugador...");
+		 		
+			// Recoger la jugada elegida
+		    
+			mov = (Movimiento) this.entradas[turno%2].readObject();
 					
-				 System.out.println("Procesando: " + mov.toString());
+		    System.out.println("Procesando: " + mov.toString());
 
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		    
 			
 			// Ejecutar el movimiento y confirmarlo
 			
 			mov.ejecutarMovimiento();
 			mov.confirmarMovimiento();
+			
+			// Informar a los clientes de los cambios que deben hacer en UI
+			
+			ArrayList<ComandoAInterfazBorrarPieza> comandos = mov.informarPantalla();
+			
+			// Comprobar que las instrucciones pueden ser ejecutadas ya sin mas feedback de algun cliente
+			
+			int i = 0;
+			while (i < comandos.size()) {
+				
+				ComandoAInterfazBorrarPieza com = comandos.get(i);
+				
+				if (com instanceof ComandoAInterfazAscension) {
+					
+					// Si hay un comando de ascensión de peón, preguntar al cliente a que quiere ascender para
+					// representar los cambios después
+					
+					ComandoAInterfazAscension com2 = (ComandoAInterfazAscension) com;
+					this.salidas[turno%2].writeObject(com2);
+					int tipo = (int) this.entradas[turno%2].readObject();
+
+					ComandoAInterfazAñadirPieza comando = new ComandoAInterfazAñadirPieza(com2.getF(),com2.getC(), com2.esBlanco());
+					comando.setTipo(tipo);
+					comandos.set(i, comando);
+					
+					// Cambiar internamente la ficha en el servidor
+					
+					tab.eliminarPieza(comando.getF(), comando.getC());
+					tab.añadirPieza(comando.getF(), comando.getC(), comando.esBlanco(), comando.getTipo());
+					
+				}
+				i++;
+			}
+			
+			// Mandar a ambos clientes la información a actualizar en UI
+			
+			for (int k = 0; k != 2; k++) {
+	
+				this.salidas[k].writeObject(comandos);
+				this.salidas[k].flush();
+
+			}
+			
 			
 			// Dar turno al siguiente jugador
 			
@@ -153,7 +200,18 @@ public class Servidor {
 			turno++;
 		}
 		
+		System.out.println("Fin del juego");
 		
+		// Fin de la partida, informar a los players que se acabó el juego
+		Thread.sleep(100);
+		for (int i = 0; i != 2; i++) {
+
+			this.salidas[i].writeObject(0);
+			this.salidas[i].flush();
+
+		}
+		
+
 		
 		if (j.reyEnJaque()) {
 			

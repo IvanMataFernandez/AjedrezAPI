@@ -3,6 +3,8 @@ package juegoOnline.Controlador;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import juegoBase.modelo.Tupla;
+
 public class MovimientosPosibleDePieza implements Serializable {
 	
 	
@@ -21,6 +23,10 @@ public class MovimientosPosibleDePieza implements Serializable {
 		
 	}
 	
+	public boolean empiezaAqui(int f, int c) {
+		return this.f1 == f && this.c1 == c;
+	}
+	
 	public void addDestino(int f2, int c2, boolean come) {
 		this.destinos.add(new Tupla(f2, c2, come));
 	}
@@ -32,12 +38,17 @@ public class MovimientosPosibleDePieza implements Serializable {
 		
 		for (Tupla t: this.destinos) {
 			
-			if (t.f2 == f && t.c2 == c) {
+			if (t.getF() == f && t.getC() == c) {
 				return true;
 			}
 		}
 		
 		return false;
+		
+	}
+	
+	public ArrayList<Tupla> getDestinos() {
+		return this.destinos;
 		
 	}
 	
@@ -49,8 +60,8 @@ public class MovimientosPosibleDePieza implements Serializable {
 		
 		for (Tupla t: this.destinos) {
 			
-			if (t.f2 == f && t.c2 == c) {
-				return t.come;
+			if (t.getF() == f && t.getC() == c) {
+				return t.come();
 			}
 		}
 		
@@ -61,22 +72,5 @@ public class MovimientosPosibleDePieza implements Serializable {
 	}
 	
 	
-	private class Tupla implements Serializable {
-		 int f2; // (f2, c2) -> Posición final
-		 int c2;
-		 boolean come; // -> Si resulta en una eliminación o no (solo para efecto visual)
-		 
-		public Tupla (int f, int c, boolean co) {
-			f2 = f;
-			c2 = c;
-			come = co;
-			
-		}
-		
-
-		 
-		 
-		
-	}
 
 }

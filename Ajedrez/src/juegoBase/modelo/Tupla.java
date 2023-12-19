@@ -1,6 +1,9 @@
 package juegoBase.modelo;
 
-public class Tupla {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Tupla implements Serializable {
 	public Tupla (int f1, int c1, boolean come1) {f = f1; c = c1; come = come1;}
 	
 	private int f;

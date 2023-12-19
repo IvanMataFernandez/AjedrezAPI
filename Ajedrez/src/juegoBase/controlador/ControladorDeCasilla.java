@@ -132,7 +132,8 @@ public class ControladorDeCasilla implements MouseListener {
 		*/
 		
 		Pantalla p = Pantalla.getPantalla();
-		
+
+
 		for (int i = 0; i != comandos.size(); i++) {
 			ComandoAInterfazBorrarPieza com = comandos.get(i);
 			
@@ -140,7 +141,6 @@ public class ControladorDeCasilla implements MouseListener {
 			// mirar si com instanceof la clase de borrar pq siempre es true,
 			// en su lugar, mirar si es además hija de ella mirando para ello la
 			// clase concreta
-			
 			
 			
 			if (com instanceof ComandoAInterfazMoverPieza) {
@@ -153,7 +153,31 @@ public class ControladorDeCasilla implements MouseListener {
 				ComandoAInterfazAñadirPieza com2 = (ComandoAInterfazAñadirPieza) com;
 				p.ponerPieza(com2.getF(), com2.getC(), com2.getTipo(), com2.esBlanco());
 		    	
-		    	 
+				// Manejar promociones de peon
+				
+			}  else if (com instanceof ComandoAInterfazAscension) {
+				
+				        Matriz j = Matriz.getMatriz();
+
+						// Crear nueva UI y esperar al input del usuario
+						
+						ControladorDePromociones con = new ControladorDePromociones();
+						int tipo = con.elegirPromocion();
+						
+						// Actualizar la instrucción para mostrar en interfaz la pieza correcta
+						ComandoAInterfazAscension com2 = (ComandoAInterfazAscension) com;
+						com2.setTipo(tipo);
+						
+						// Actualizar la pieza
+						
+						j.eliminarPieza(com2.getF(), com2.getC());
+						j.añadirPieza(com2.getF(), com2.getC(), com2.esBlanco(), com2.getTipo());
+						
+						// Queuear las instrucciones del cambio de pieza
+						ComandoAInterfazAñadirPieza comando = new ComandoAInterfazAñadirPieza(com2.getF(),com2.getC(), com2.esBlanco());
+						comando.setTipo(com2.getTipo());
+						comandos.add(comando);						
+			 
 				
 			} else {
 
@@ -165,7 +189,9 @@ public class ControladorDeCasilla implements MouseListener {
 
 	}
 	
-	
+
+
+   
 	
 
 	@Override
