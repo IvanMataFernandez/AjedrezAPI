@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Pieza extends JLabel {
 	
 //	private final String RUTA_IMAGENES = ".\\piezaspng\\";
-	private final String RUTA_IMAGENES = "."+File.separator+"piezaspng"+File.separator;
+	private final String RUTA_IMAGENES = "."+File.separator+"assets"+File.separator+"piezaspng"+File.separator;
 
 	
 	public Pieza (int pTipoDePieza, boolean pBlanco) {

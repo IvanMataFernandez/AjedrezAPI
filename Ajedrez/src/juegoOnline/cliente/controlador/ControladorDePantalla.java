@@ -45,7 +45,6 @@ public class ControladorDePantalla {
 	         en (f, c). Se elimina la pieza que estaba previamente en (f, c)
 	         
 	         
-	         Nota2: Añadir no está implementado todavía
 		
 		
 		*/

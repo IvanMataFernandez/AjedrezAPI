@@ -19,12 +19,11 @@ import juegoBase.modelo.Matriz;
 import juegoBase.modelo.Movimiento;
 import juegoBase.modelo.Pieza;
 import juegoBase.modelo.Tupla;
-import juegoOnline.Controlador.MovimientosPosibleDePieza;
+import juegoOnline.server.controlador.MovimientosPosibleDePieza;
 
 
 public class Servidor {
 	
-	private static final long serialVersionUID = 1L;
 	private ObjectOutputStream[] salidas;
 	private ObjectInputStream[] entradas;
 	private ServerSocket servidor;
@@ -36,7 +35,9 @@ public class Servidor {
 	public void ejecutarServidor() {
 		
 		
-		// Inicializar arrays + socket del servidor (alojado en port 12345)
+		// Inicializar arrays + socket del servidor 
+		// El programa se aloja en el puerto 12345 del servidor. La IP de la máquina obviamente no se define aquí,
+		// java no maneja la asignación de IPs.
 		
 		this.salidas = new ObjectOutputStream[2];
 		this.entradas = new ObjectInputStream[2];
@@ -83,6 +84,12 @@ public class Servidor {
 			
 
 		}
+			
+			// Una vez las conexiones establecidas, el servidor puede empezar a ejecutar la partida.
+			// El servidor funciona de arbitro entre ambas parties, siendo este el único que tiene acceso
+			// al estado interno de la partida. El servidor se encarga de informar a los jugadores de lo que deben
+			// hacer y como actualizar los gráficos. Los clientes no pueden hablar entre ellos, solo con el server.
+			
 			this.jugar();
 		
 		} catch (Exception e) {
@@ -123,6 +130,8 @@ public class Servidor {
 			
 			System.out.println("Turno de Jugador "+turno%2+1+ ". Estado de juego:");
 			
+			// Imprimir el estado del tablero por caracteres ASCII (server no usa UI por razones obvias)
+			
 			tab.imprimirTablero();
 
 			
@@ -137,7 +146,8 @@ public class Servidor {
 			System.out.println();
 		    System.out.println("Esperando respuesta del jugador...");
 		 		
-			// Recoger la jugada elegida
+			// Recoger el movimiento elegido, la ejecución se queda trabada aquí hasta que el player respectivo
+		    // manda la jugada que quiere realizar por red
 		    
 			mov = (Movimiento) this.entradas[turno%2].readObject();
 					
@@ -150,16 +160,19 @@ public class Servidor {
 			mov.ejecutarMovimiento();
 			mov.confirmarMovimiento();
 			
-			// Informar a los clientes de los cambios que deben hacer en UI
+			// Recoger las instrucciones que los clientes deberían ejecutar para updatear su UI
 			
 			ArrayList<ComandoAInterfazBorrarPieza> comandos = mov.informarPantalla();
 			
 			// Comprobar que las instrucciones pueden ser ejecutadas ya sin mas feedback de algun cliente
+			// (o sea, que no hay promociones de peon por medio)
 			
 			int i = 0;
 			while (i < comandos.size()) {
 				
 				ComandoAInterfazBorrarPieza com = comandos.get(i);
+				
+				// Comprobar comando a comando si alguno es de ascension de peon, si no, lo ignoramos
 				
 				if (com instanceof ComandoAInterfazAscension) {
 					
@@ -167,9 +180,11 @@ public class Servidor {
 					// representar los cambios después
 					
 					ComandoAInterfazAscension com2 = (ComandoAInterfazAscension) com;
-					this.salidas[turno%2].writeObject(com2);
-					int tipo = (int) this.entradas[turno%2].readObject();
+					this.salidas[turno%2].writeObject(com2); // informar al jugador de que debe elegir a que ascender por red
+					int tipo = (int) this.entradas[turno%2].readObject(); // recoger por red la respuesta del jugador
 
+					// Añadir a la lista de instrucciones de updates por UI el cambiar el peon por la pieza ascendida
+					
 					ComandoAInterfazAñadirPieza comando = new ComandoAInterfazAñadirPieza(com2.getF(),com2.getC(), com2.esBlanco());
 					comando.setTipo(tipo);
 					comandos.set(i, comando);
@@ -203,6 +218,7 @@ public class Servidor {
 		System.out.println("Fin del juego");
 		
 		// Fin de la partida, informar a los players que se acabó el juego
+		
 		Thread.sleep(100);
 		for (int i = 0; i != 2; i++) {
 
@@ -212,6 +228,9 @@ public class Servidor {
 		}
 		
 
+		// Evaluar quien gano (no se le dice a los clientes quien gano, solo lo calcula el server internamente)
+		
+		// TODO: Mostrar en funcionalidad ONLINE quien gano
 		
 		if (j.reyEnJaque()) {
 			
@@ -254,7 +273,7 @@ public class Servidor {
         	
         	for (Tupla t: posiciones) {
         		
-        		// Generar la posición a donde movernos
+        		// Generar las posiciones a donde movernos, y meterlos en el objeto de la posición de inicio base
         		
         		mov.addDestino(t.getF(), t.getC(), t.come());
         	}

@@ -14,6 +14,8 @@ public class ListaJugadores {
 		this.jugadorActual = 0;
 	}
 	
+
+	
 	
 	private void eliminarPiezasDeLosJugadores() {
 		
@@ -21,6 +23,17 @@ public class ListaJugadores {
 			j.eliminarTodasSusPiezas();
 		}
 	}
+	
+	
+	public void resetearVictorias() {
+		
+		for (int j = 0; j != 2; j++) {
+			this.jugadores[j].reiniciarVictorias();
+
+		}
+		
+	}
+	
 	
 	public void procesarResultado(int resultado) {
 		/*

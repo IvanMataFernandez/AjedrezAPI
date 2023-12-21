@@ -16,7 +16,7 @@ public class Dibujador {
 	}
 	
 	public void inicializarPantalla() {
-		Pantalla.getPantalla().inicializarPantalla();;
+		Pantalla.getPantalla().inicializarPantalla();
 	}
 	
 	public void matarPantalla() {

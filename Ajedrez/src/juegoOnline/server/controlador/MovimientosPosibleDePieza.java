@@ -1,4 +1,4 @@
-package juegoOnline.Controlador;
+package juegoOnline.server.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import juegoBase.modelo.Tupla;
 public class MovimientosPosibleDePieza implements Serializable {
 	
 	
-	// Representa un movimiento posible
+	// Representa los movimientos de una pieza válidos. Esto se manda por red del servidor a los clientes
 	
 	private int f1; // (f1, c1) -> Posición actual
 	private int c1;
-    private ArrayList<Tupla> destinos; // -> Destinos donde poner la ficha
+    private ArrayList<Tupla> destinos; // -> Destinos donde poner la ficha [(f2, c2), (f3, c3), ... ]
 	
 	
 	public MovimientosPosibleDePieza(int f1, int c1) {
@@ -64,6 +64,7 @@ public class MovimientosPosibleDePieza implements Serializable {
 				return t.come();
 			}
 		}
+		
 		
 		// LA EJECUCIÓN NO DEBERÍA LLEGAR AQUÍ
 		

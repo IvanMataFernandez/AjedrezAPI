@@ -2,6 +2,8 @@ package juegoBase.modelo;
 
 import juegoBase.controlador.ControladorDeReproductorDeAudio;
 import juegoBase.controlador.Dibujador;
+import juegoBase.vista.Pantalla;
+import menuPrincipal.controlador.ControladorDeMenu;
 
 
 public class MainLoop {
@@ -38,20 +40,26 @@ public class MainLoop {
 	}
 	
 	public void iniciarPrograma() {
-		
+
 		Dibujador dib = Dibujador.getDibujador();
+
+
 		ListaJugadores l = ListaJugadores.getListaJugadores();
 		ControladorDeReproductorDeAudio r = new ControladorDeReproductorDeAudio();
 		
-		
+	
+		l.resetearVictorias();
+
+
 		boolean jugar = true;
+
 		
 		while (jugar) {
 			
 			// Inicializar la interfaz del tablero
 			
 			dib.inicializarPantalla();
-			
+
 			// Jugar
 			
 			int resultado = this.jugar();
@@ -65,6 +73,7 @@ public class MainLoop {
 			
 			l.procesarResultado(resultado);
 			r.reproducirAudio("fin_partida");
+			
 			// Crear la interfaz del menú de resultados de partida y esperar a input de botón
 			
 			
@@ -82,7 +91,12 @@ public class MainLoop {
 			jugar = this.respuestaTrasFinDeJuego == 1;
 			
 			
-		}
+		} 
+		
+		// Fin de las partidas, abrir el menu principal de nuevo
+		
+		ControladorDeMenu.getControlador().crearMenuPrincipal();
+		
 	}
 	
 	private int jugar() {
@@ -97,7 +111,8 @@ public class MainLoop {
 
 		
 		tab.inicializarTablero();
-		
+		tab.imprimirTablero();
+
 
 		while (j.recalcularMovimientosLegales(tab.getTablero())) {
 	//		tab.checkPiezas();
@@ -105,6 +120,7 @@ public class MainLoop {
 			this.esperandoMovimiento = true;
 			
 			// Esperar a que se mueva una ficha
+			
 			
 			while (this.esperandoMovimiento) {
 				try {

@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import juegoBase.modelo.Movimiento;
 import juegoBase.modelo.Tupla;
-import juegoOnline.Controlador.MovimientosPosibleDePieza;
 import juegoOnline.cliente.modelo.Cliente;
 import juegoBase.vista.Casilla;
 import juegoOnline.cliente.vista.Pantalla;
+import juegoOnline.server.controlador.MovimientosPosibleDePieza;
 
 public class ControladorDeCasilla implements MouseListener {
 
@@ -41,20 +41,26 @@ public class ControladorDeCasilla implements MouseListener {
 
 		
 		
-		// No es nuestro turno
+		// No es nuestro turno, skippear input
 		
-		if (!cli.miTurno()) {System.out.println("No"); return;}
+		if (!cli.miTurno()) {return;}
+		
+		// Es nuestro turno, procesar input
 		
 		int f = this.laCasilla.getFila();
 		int c = this.laCasilla.getCol();
 		int num = p.procesarClick(f, c);
 		
-		// Es nuestro turno
 		
 		if (num == 1) {
+			
+			// Ver si el server nos ha dicho que la pieza elegida se puede mover
+			
 			MovimientosPosibleDePieza piezaAMover = cli.inicioLegal(f, c);
 			
 			if (piezaAMover != null) { 
+				
+				// Se puede mover, marcar las casillas que el server nos deja mover a
 
 				ArrayList<Tupla> casillasPosibles = piezaAMover.getDestinos();
 				p.marcarComoCasillaActual(f, c);
@@ -71,11 +77,16 @@ public class ControladorDeCasilla implements MouseListener {
 				
 				
 			} else {
+				
+				// No se puede mover una pieza en esa casilla, hacer rollback
+				
 				p.eliminarClick(1);
 				p.desmarcarTodo();
 			}
 			
 		} else {
+			
+			// Ya se ha elegido una pieza valida, ver si podemos moverla al click donde hemos hecho
 			
 			boolean val = false;
 			int i = 0;
@@ -83,6 +94,9 @@ public class ControladorDeCasilla implements MouseListener {
 			int c1 = p.primerClickCol();
 			Tupla t = null;
 
+			
+			// Comparar nuestro click con los movimientos legales que nos ha dado el server de esa pieza
+			
 			ArrayList<Tupla> destinos = cli.inicioLegal(f1, c1).getDestinos();
 
 			while (!val && i < destinos.size()) {
@@ -93,13 +107,14 @@ public class ControladorDeCasilla implements MouseListener {
 			
 			
 			if (val) {
-
+				
+				// Se encontró la jugada, desmarcar la matriz
 				
 				p.desmarcarTodo();
 				p.eliminarClick(2);
 				p.eliminarClick(1);
 				
-				// INFORMAR A SERVER DE MOVE
+				// Informar al server del movimiento a realizar por la red
 				
 				try {
 					cli.informarAServerDeMove(new Movimiento(f1, c1, t));
@@ -109,6 +124,8 @@ public class ControladorDeCasilla implements MouseListener {
 				
 
 			} else {
+				
+				// No se posible el move, hacer rollback
 
 				p.eliminarClick(2);
 				p.eliminarClick(1);

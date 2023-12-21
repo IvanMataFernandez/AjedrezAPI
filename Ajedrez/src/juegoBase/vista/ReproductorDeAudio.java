@@ -27,7 +27,7 @@ public class ReproductorDeAudio {
 		// Pre: Nombre de archivo .wav existente (sin la extension puesta) en el path assets/audio/(archivo).wav
 		//      para ser ejecutado
 		try {
-			AudioInputStream audio = AudioSystem.getAudioInputStream(new File("."+File.separator+"audio"+File.separator+""+pFile+".wav"));
+			AudioInputStream audio = AudioSystem.getAudioInputStream(new File("."+File.separator+"assets"+File.separator+"audio"+File.separator+""+pFile+".wav"));
 			this.clip = AudioSystem.getClip();
 			this.clip.open(audio);
 			this.clip.start();

@@ -17,6 +17,9 @@ import juegoBase.vista.Pieza;
 
 public class Pantalla extends JFrame {
 	
+	// La mayoría del código se reusa de juegoBase.vista.Pantalla, se ha rescrito pq se requieren algunos cambios menores
+	// como implementar la vista para los dos jugadores (orientación de la matriz)
+	
 	private class Posicion {
 		public Posicion(int f1, int c1) {f = f1; c = c1;}
 		int f;

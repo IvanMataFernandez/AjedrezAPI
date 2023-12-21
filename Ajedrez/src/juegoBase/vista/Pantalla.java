@@ -1,6 +1,7 @@
 package juegoBase.vista;
 
 import java.awt.GridLayout;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -35,6 +36,7 @@ public class Pantalla extends JFrame {
 	public void inicializarPantalla() {
 		this.inicializarTablero();
 		this.colocarPiezas();
+		
 	}
 	
 	public static Pantalla getPantalla() {
@@ -59,25 +61,33 @@ public class Pantalla extends JFrame {
 		this.clicks = new Posicion[2];
 		super.setBounds(0, 0, 680, 680); // 85* 8 = 680
 		super.setResizable(false);
+		
+	    
+	
 		this.panelTablero = new JPanel();
-		this.panelTablero.setBounds(0, 0, 680, 680);
+		this.panelTablero.setBounds(0, 0, 680, 680); 
 		this.panelTablero.setLayout(new GridLayout(8,8,0,0));
-		super.setContentPane(this.panelTablero);
+		
 
 		this.tablero = new Casilla[8][8];
+		
 		
 		for (int f = 0; f != 8; f++) {
 			for (int c = 0; c != 8; c++) {
 
-				this.tablero[f][c] = new Casilla(f,c);
-				this.tablero[f][c].addMouseListener(new ControladorDeCasilla(this.tablero[f][c]));
-			
-				this.panelTablero.add(this.tablero[f][c]);
+					this.tablero[f][c] = new Casilla(f,c);
+					this.tablero[f][c].addMouseListener(new ControladorDeCasilla(this.tablero[f][c]));
+				
+					this.panelTablero.add(this.tablero[f][c]);				
+				
+
 
 			}
 		}
+		
+		super.setContentPane(this.panelTablero);
 
-
+	
 		super.setVisible(true);
 
 	}

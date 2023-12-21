@@ -75,6 +75,7 @@ public class Jugador {
 		return this.victorias;
 	}
 	
+	public void reiniciarVictorias() {this.victorias = 0;}
 	
 	
 	

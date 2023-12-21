@@ -10,8 +10,8 @@ import java.util.Scanner;
 import juegoBase.controlador.ComandoAInterfazAscension;
 import juegoBase.controlador.ComandoAInterfazBorrarPieza;
 import juegoBase.modelo.Movimiento;
-import juegoOnline.Controlador.MovimientosPosibleDePieza;
 import juegoOnline.cliente.controlador.ControladorDePantalla;
+import juegoOnline.server.controlador.MovimientosPosibleDePieza;
 
 public class Cliente {
 	
@@ -41,6 +41,8 @@ public class Cliente {
 
 	public MovimientosPosibleDePieza inicioLegal (int f, int c) {
 		
+		// Ver si la casilla marcada tiene una pieza que podemos mover
+		
 		for (MovimientosPosibleDePieza mov: this.movimientos) {
 			if (mov.empiezaAqui(f, c)) {
 				return mov;
@@ -51,18 +53,13 @@ public class Cliente {
 	
 	public boolean miTurno() {return this.miTurno;}
 	
-	
-	public void procesarTurno() throws IOException, ClassNotFoundException {
-		ArrayList<MovimientosPosibleDePieza> movimientos = (ArrayList<MovimientosPosibleDePieza>) this.entrada.readObject();
-		
-		// PROCESAR CASILLA A ELEGIR
-		MovimientosPosibleDePieza mov = null;
-		this.salida.writeObject(mov);
-		this.salida.flush();
-	}
+
 	
 	
 	public void informarAServerDeMove(Movimiento mov) throws IOException {
+		
+		// Mandar por red el movimiento elegido al servidor y acabar el turno
+		
 		this.salida.writeObject(mov);
 		this.salida.flush();
 		this.miTurno = false;
@@ -73,10 +70,7 @@ public class Cliente {
 		
 		ControladorDePantalla c = ControladorDePantalla.getControladorDePantalla();
 
-
 		
-		// TODO: Game loop del cliente (server está + UI)
-
 		// Gameloop del cliente
 		
 		boolean seguir = true;
@@ -84,9 +78,10 @@ public class Cliente {
 		while (seguir) {
 			
 			// Esperar a que el servidor nos de el turno
+			
 			Object mensaje = this.entrada.readObject();
 
-			// Descifrar el mensaje:
+			// Descifrar el mensaje del servidor, los casos posibles se analizan a continuación:
 			
 			if (mensaje instanceof ArrayList) {
 				
@@ -123,11 +118,14 @@ public class Cliente {
 				
 				
 			} else if (mensaje instanceof ComandoAInterfazAscension) {
-				// El servidor nos ha interrumpido para que elijamos a que ascender el peon, indicar la ascensión
+				
+				// El servidor nos ha interrumpido para que elijamos a que ascender el peón, indicar la ascensión
+				
 				this.salida.writeObject(c.procesarVentanaPromociones());
 
 				
 			} else {
+				
 				// El mensaje nos informa de fin del juego
 				
 				seguir = false;
@@ -136,7 +134,12 @@ public class Cliente {
 			
 		}
 		
+		// Cerrar la conexión
+		
 		this.cliente.close();
+		
+		// Cerrar la interfaz
+		
 		c.cerrarPantalla();
 		
 	}
@@ -149,7 +152,7 @@ public class Cliente {
 		try {
 			// Conectar con servidor...
 			
-			Scanner s= new Scanner(System.in);
+			Scanner s = new Scanner(System.in);
 			System.out.println("Escribe la IP del server");
 			
 			this.cliente = new Socket(s.next(), 12345);
@@ -163,7 +166,7 @@ public class Cliente {
 			
 			this.salida.flush();
 			
-			// Recibir del servidor el número de jugador asignado
+			// Recibir del servidor el número de jugador asignado (el primero en conectar es blanco, el segundo es negro)
 			
 			this.esBlanco = this.entrada.readInt() == 1;
 
@@ -187,6 +190,17 @@ public class Cliente {
 
 
 	}
+	
+	
+	/*
+	public void procesarTurno() throws IOException, ClassNotFoundException {
+		ArrayList<MovimientosPosibleDePieza> movimientos = (ArrayList<MovimientosPosibleDePieza>) this.entrada.readObject();
+		
+		// PROCESAR CASILLA A ELEGIR
+		MovimientosPosibleDePieza mov = null;
+		this.salida.writeObject(mov);
+		this.salida.flush();
+	} */
 	
 }
 

@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -58,9 +59,10 @@ public class Resultado extends JFrame{
         
         // Añadir la imagen de la ficha blanca
         
-        
+
+    			
         etiqueta = new JLabel("",SwingConstants.CENTER);
-        etiqueta.setIcon(new ImageIcon(".\\piezaspng\\reyb.png"));
+        etiqueta.setIcon(new ImageIcon( "."+File.separator+"assets"+File.separator+"piezaspng"+File.separator+"wk.png"));
         panelPuntuacion.add(etiqueta);
         
         // Poner el "VS"
@@ -72,7 +74,7 @@ public class Resultado extends JFrame{
         // Añadir la imagen de la ficha negra
         
         etiqueta = new JLabel("",SwingConstants.CENTER);
-        etiqueta.setIcon(new ImageIcon(".\\piezaspng\\reyd.png"));
+        etiqueta.setIcon(new ImageIcon( "."+File.separator+"assets"+File.separator+"piezaspng"+File.separator+"bk.png"));
         panelPuntuacion.add(etiqueta);
         
         // Añadir contador wins blanco
