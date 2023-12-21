@@ -93,9 +93,9 @@ public class MainLoop {
 			
 		} 
 		
-		// Fin de las partidas, abrir el menu principal de nuevo
+		// Fin de las partidas
 		
-		ControladorDeMenu.getControlador().crearMenuPrincipal();
+	
 		
 	}
 	

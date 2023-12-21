@@ -8,7 +8,7 @@ public class Main {
 	public static void main (String[] args) {
 
 		ControladorDeMenu.getControlador().crearMenuPrincipal();
-		MainLoop.getMainLoop().ejecutarMainLoop();
+		MainLoopMenuPrincipal.getMainLoop().ejecutarMainLoop();
 	}
 	
 }

@@ -7,9 +7,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import juegoBase.controlador.Dibujador;
-import menuPrincipal.modelo.MainLoop;
-import menuPrincipal.vista.MenuPrincipal;
+import menuPrincipal.modelo.MainLoopMenuPrincipal;
 
 public class Accionador implements MouseListener {
 
@@ -34,25 +32,25 @@ public class Accionador implements MouseListener {
 		switch (opcion) {
 		case "local":
 			// Jugar de forma local con otro player
-			MainLoop.getMainLoop().setOpcion(1);
+			MainLoopMenuPrincipal.getMainLoop().setOpcion(1);
 
 
 
 			break;
 		case "online":
 			// Jugar de forma online con otro player
-			MainLoop.getMainLoop().setOpcion(2);
+			MainLoopMenuPrincipal.getMainLoop().setOpcion(2);
 
 			break;
 		case "AI":
 			// Jugar contra bot
-			MainLoop.getMainLoop().setOpcion(3);
+			MainLoopMenuPrincipal.getMainLoop().setOpcion(3);
 
 			break;
 			
 		case "door":
 			// Salir
-			MainLoop.getMainLoop().setOpcion(4);
+			MainLoopMenuPrincipal.getMainLoop().setOpcion(4);
 
 			
 			

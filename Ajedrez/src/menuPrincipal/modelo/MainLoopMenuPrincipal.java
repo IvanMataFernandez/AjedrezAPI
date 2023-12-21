@@ -1,23 +1,26 @@
 package menuPrincipal.modelo;
 
+import juegoBase.modelo.MainLoop;
+import juegoOnline.cliente.modelo.Cliente;
+import menuPrincipal.controlador.ControladorDeMenu;
 import menuPrincipal.vista.MenuPrincipal;
 
-public class MainLoop {
+public class MainLoopMenuPrincipal {
 	
-	private static MainLoop m;
+	private static MainLoopMenuPrincipal m;
 	private int opcionElegida;
 
 	
-	private MainLoop () {
+	private MainLoopMenuPrincipal () {
 		this.opcionElegida = 0;
 	}
 	
-	public static MainLoop getMainLoop() {
-		if (MainLoop.m == null) {
-			MainLoop.m = new MainLoop();
+	public static MainLoopMenuPrincipal getMainLoop() {
+		if (MainLoopMenuPrincipal.m == null) {
+			MainLoopMenuPrincipal.m = new MainLoopMenuPrincipal();
 		}
 		
-		return MainLoop.m;
+		return MainLoopMenuPrincipal.m;
 	}
 	
 	
@@ -34,17 +37,19 @@ public class MainLoop {
 				// Jugar de forma local con otro player
 				
 				MenuPrincipal.getMenu().cerrarVentana();
-				MenuPrincipal.getMenu().jugarVsJugador();
+				MainLoop.getMainLoop().iniciarPrograma();
 				this.opcionElegida = 0;
-
+				ControladorDeMenu.getControlador().crearMenuPrincipal();
 
 				break;
 			case 2:
 				// TODO: Menu: Jugar de forma online con otro player
 				
-				
-				
+				MenuPrincipal.getMenu().cerrarVentana();
+				Cliente.getCliente().ejecutarCliente();
 				this.opcionElegida = 0;
+				ControladorDeMenu.getControlador().crearMenuPrincipal();
+				
 				break;
 			case 3:
 				// TODO: Menu: Jugar contra bot

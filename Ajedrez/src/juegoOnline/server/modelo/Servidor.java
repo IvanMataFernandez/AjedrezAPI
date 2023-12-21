@@ -75,7 +75,15 @@ public class Servidor {
                 
                 this.salidas[jug-1].writeInt(jug);
                 this.salidas[jug-1].flush();
+                
+                Thread.sleep(100);
+                
+                // Informar a todos los jugadores restantes actuales de que alguien se unió a la sala
 
+                for (int i = 1; i != jug; i++) {
+                    this.salidas[i-1].writeObject("Player "+ Integer.toString(jug));
+                    this.salidas[i-1].flush();	
+                }
 
 
 		
@@ -85,13 +93,47 @@ public class Servidor {
 
 		}
 			
+			// Conexiones preparadas, hacer countdown
+			
+			for (int jug = 0; jug != 2; jug ++) {
+                this.salidas[jug].writeObject("Ready");
+                this.salidas[jug].flush();
+			}
+			
+			
+			int espera = 7;
+			
+			while (espera != -1) {
+				for (int jug = 0; jug != 2; jug ++) {
+	                this.salidas[jug].writeObject(Integer.toString(espera));
+	                this.salidas[jug].flush();
+				}
+				
+				Thread.sleep(1000);
+				
+				espera--;
+			}
+			
+			
 			// Una vez las conexiones establecidas, el servidor puede empezar a ejecutar la partida.
 			// El servidor funciona de arbitro entre ambas parties, siendo este el único que tiene acceso
 			// al estado interno de la partida. El servidor se encarga de informar a los jugadores de lo que deben
 			// hacer y como actualizar los gráficos. Los clientes no pueden hablar entre ellos, solo con el server.
 			
-			this.jugar();
+			int resultado = this.jugar();
 		
+			
+			// Fin de la partida, informar a los players de quien ganó y cerrar la conexión
+			
+			Thread.sleep(100);
+			
+			for (int i = 0; i != 2; i++) {
+
+				this.salidas[i].writeObject(resultado);
+				this.salidas[i].flush();
+
+			}
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -217,20 +259,10 @@ public class Servidor {
 		
 		System.out.println("Fin del juego");
 		
-		// Fin de la partida, informar a los players que se acabó el juego
-		
-		Thread.sleep(100);
-		for (int i = 0; i != 2; i++) {
-
-			this.salidas[i].writeObject(0);
-			this.salidas[i].flush();
-
-		}
 		
 
-		// Evaluar quien gano (no se le dice a los clientes quien gano, solo lo calcula el server internamente)
-		
-		// TODO: Mostrar en funcionalidad ONLINE quien gano
+		// Mirar quien gano
+
 		
 		if (j.reyEnJaque()) {
 			

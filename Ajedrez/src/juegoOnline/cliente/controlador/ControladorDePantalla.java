@@ -6,7 +6,11 @@ import juegoBase.controlador.ComandoAInterfazAñadirPieza;
 import juegoBase.controlador.ComandoAInterfazBorrarPieza;
 import juegoBase.controlador.ComandoAInterfazMoverPieza;
 import juegoBase.controlador.ControladorDePromociones;
+import juegoOnline.cliente.vista.ErrorDeConexion;
+import juegoOnline.cliente.vista.Lobby;
 import juegoOnline.cliente.vista.Pantalla;
+import juegoOnline.cliente.vista.Resultado;
+import juegoOnline.cliente.vista.SelectorDeServidor;
 import juegoBase.vista.ReproductorDeAudio;
 
 public class ControladorDePantalla {
@@ -100,5 +104,57 @@ public class ControladorDePantalla {
 	public void cerrarPantalla() {
 		Pantalla.getPantalla().dispose();
 	}
+	
+	
+	
+	public void abrirSelectorDeServidor() {
+		SelectorDeServidor.getSelector().inicializarPantalla();
+	}
+	
+	public void cerrarSelectorDeServidor() {
+		SelectorDeServidor.getSelector().cerrarPantalla();
+
+	}
+	
+	public void abrirErrorDeConexion () {
+		ErrorDeConexion.getErrorPantalla().inicializarPantalla();
+		
+	}
+	
+	public void cerrarErrorDeConexion () {
+		ErrorDeConexion.getErrorPantalla().cerrarPantalla();
+
+	}
+	
+	public void abrirResultados(int resultado) {
+		Resultado.crearVentanaResultados(resultado);
+	}
+	
+	public void cerrarResultados() {
+		Resultado.borrarVentanaResultados();
+	}
+	
+	
+	public void abrirLobby (String ip, int playersReady) {
+		Lobby.getLobby().inicializarPantalla(ip, playersReady);
+		
+	}
+	
+	public void player2ReadyEnLobby () {
+		Lobby.getLobby().marcarPlayer2ComoReady();
+		
+	}
+	
+	public void ponerCountDownEnLobbyEn(String valor) {
+		Lobby.getLobby().ponerCountDownEn(valor);
+	}
+	
+	public void cerrarLobby () {
+		Lobby.getLobby().cerrarPantalla();
+
+	}
+	
+	
+	
 	
 }

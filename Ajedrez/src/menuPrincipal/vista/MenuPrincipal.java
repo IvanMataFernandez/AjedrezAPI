@@ -83,9 +83,8 @@ public class MenuPrincipal extends JFrame {
 	
 	public void cerrarVentana() {super.dispose();}
 	
-	public void jugarVsJugador() {MainLoop.getMainLoop().iniciarPrograma();}
 	
-	
+
 	
 
 }
