@@ -133,7 +133,6 @@ public abstract class Pieza {
     }
     
     
-    // Implementado en clases hijas, requiere su existencia aqui para la pieza imaginaria
     
     public abstract ArrayList<Tupla> movimientosValidos();
 

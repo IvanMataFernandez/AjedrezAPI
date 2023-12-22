@@ -2,6 +2,7 @@ package juegoBase.modelo;
 
 import juegoBase.controlador.ControladorDeReproductorDeAudio;
 import juegoBase.controlador.Dibujador;
+import juegoBase.modelo.IA.JugadorIA;
 import juegoBase.vista.Pantalla;
 import menuPrincipal.controlador.ControladorDeMenu;
 
@@ -13,6 +14,9 @@ public class MainLoop {
 	private int respuestaTrasFinDeJuego; // -1 -> En espera | 0 -> Salir | 1 -> Jugar de nuevo
 	private static MainLoop j;
 
+	
+	private boolean turnoDePlayer;
+	
 	public static final int VICTORIA_BLANCO = 1;
 	public static final int VICTORIA_NEGRO = 2;
 	public static final int EMPATE = 0;
@@ -39,7 +43,7 @@ public class MainLoop {
 		this.respuestaTrasFinDeJuego = valor;
 	}
 	
-	public void iniciarPrograma() {
+	public void iniciarPrograma(boolean pJugadorVsJugador) {
 
 		Dibujador dib = Dibujador.getDibujador();
 
@@ -47,7 +51,11 @@ public class MainLoop {
 		ListaJugadores l = ListaJugadores.getListaJugadores();
 		ControladorDeReproductorDeAudio r = new ControladorDeReproductorDeAudio();
 		
-	
+
+		
+		l.inicializarPlayers(pJugadorVsJugador); 
+
+		
 		l.resetearVictorias();
 
 
@@ -115,20 +123,32 @@ public class MainLoop {
 
 
 		while (j.recalcularMovimientosLegales(tab.getTablero())) {
-	//		tab.checkPiezas();
-		
-			this.esperandoMovimiento = true;
 			
-			// Esperar a que se mueva una ficha
-			
-			
-			while (this.esperandoMovimiento) {
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {}
+			if (j.esIA()) {
+				this.turnoDePlayer = false;
+				// Dejar que la IA haga el move
+				((JugadorIA)j).realizarJugada();
+				
+			} else {
+				this.turnoDePlayer = true;
+				
+				// Dejar que el humano haga el move
+				
+				this.esperandoMovimiento = true;
+				
+				// Esperar a que se mueva una ficha
+				
+				
+				while (this.esperandoMovimiento) {
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {}
+				}	
 			}
+		
+
 			
-			// WAIT FOR MOVE
+		
 			
 			
 			l.cambiarJugador();
@@ -165,6 +185,10 @@ public class MainLoop {
 		
 		
 		
+	}
+	
+	public boolean turnoDePlayer() {
+		return this.turnoDePlayer;
 	}
 	
 }

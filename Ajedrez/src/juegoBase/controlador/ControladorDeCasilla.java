@@ -41,6 +41,9 @@ public class ControladorDeCasilla implements MouseListener {
 		int c = this.laCasilla.getCol();
 		int num = p.procesarClick(f, c);
 
+		if (!m.turnoDePlayer()) {return;} // Si es turno de IA, skippear input de player
+		 
+		
 		
 		if (num == 1) {
 			

@@ -3,6 +3,8 @@ package juegoBase.modelo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import juegoBase.modelo.IA.JugadorIA;
+
 public class Jugador {
 
 	private boolean blanco;
@@ -18,6 +20,11 @@ public class Jugador {
 	
 	public boolean esBlanco() {
 		return this.blanco;
+	}
+	
+	public boolean esIA() {
+		// Ver si el player es IA o no
+		return this instanceof JugadorIA;
 	}
 	
 	public void añadirPieza(Pieza pPieza) {
@@ -45,7 +52,7 @@ public class Jugador {
 	}
 	
 	
-	public boolean  recalcularMovimientosLegales(Pieza[][] pMatriz) {
+	public boolean recalcularMovimientosLegales(Pieza[][] pMatriz) {
 		// Post: Cada pieza actualiza en su AL sus movimientos legales, return true si al menos una puede mover
 		
 		
@@ -62,6 +69,8 @@ public class Jugador {
 		
 		
 	}
+	
+	protected ArrayList<Pieza> getPiezas() {return this.susPiezas;} 
 	
 	public boolean reyEnJaque() {
 		return this.rey.enRangoDelRival();

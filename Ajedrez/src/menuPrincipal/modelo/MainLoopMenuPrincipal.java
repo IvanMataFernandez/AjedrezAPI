@@ -37,7 +37,7 @@ public class MainLoopMenuPrincipal {
 				// Jugar de forma local con otro player
 				
 				MenuPrincipal.getMenu().cerrarVentana();
-				MainLoop.getMainLoop().iniciarPrograma();
+				MainLoop.getMainLoop().iniciarPrograma(true);
 				this.opcionElegida = 0;
 				ControladorDeMenu.getControlador().crearMenuPrincipal();
 
@@ -52,8 +52,12 @@ public class MainLoopMenuPrincipal {
 				
 				break;
 			case 3:
-				// TODO: Menu: Jugar contra bot
+				// Menu: Jugar contra bot
+				MenuPrincipal.getMenu().cerrarVentana();
+				MainLoop.getMainLoop().iniciarPrograma(false);
 				this.opcionElegida = 0;
+				ControladorDeMenu.getControlador().crearMenuPrincipal();
+				
 				break;
 				
 			case 4:

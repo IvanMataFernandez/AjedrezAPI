@@ -1,5 +1,7 @@
 package juegoBase.modelo;
 
+import juegoBase.modelo.IA.JugadorIARandom;
+
 public class ListaJugadores {
 
 	private static ListaJugadores l;
@@ -9,12 +11,23 @@ public class ListaJugadores {
 	
 	private ListaJugadores() {
 		this.jugadores = new Jugador[2];
-		this.jugadores[0] = new Jugador(true);
-		this.jugadores[1] = new Jugador(false);
 		this.jugadorActual = 0;
 	}
 	
 
+	public void inicializarPlayers(boolean pDosHumanos) {
+
+		this.jugadores[0] = new Jugador(true);
+		
+		if (pDosHumanos) {
+			this.jugadores[1] = new Jugador(false);
+		
+		} else {
+			this.jugadores[1] = new JugadorIARandom(false);
+			
+		}
+		
+	}
 	
 	
 	private void eliminarPiezasDeLosJugadores() {
