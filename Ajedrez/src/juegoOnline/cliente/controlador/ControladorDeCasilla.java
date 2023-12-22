@@ -108,11 +108,7 @@ public class ControladorDeCasilla implements MouseListener {
 			
 			if (val) {
 				
-				// Se encontró la jugada, desmarcar la matriz
-				
-				p.desmarcarTodo();
-				p.eliminarClick(2);
-				p.eliminarClick(1);
+
 				
 				// Informar al server del movimiento a realizar por la red
 				
@@ -121,6 +117,11 @@ public class ControladorDeCasilla implements MouseListener {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+				
+				p.eliminarClick(2);
+				p.eliminarClick(1);
+				
+		//		p.desmarcarTodo(); -> No se necesita, se ejecuta después al actualizar los movimientos de las piezas
 				
 
 			} else {

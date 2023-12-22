@@ -54,6 +54,8 @@ public class ControladorDePantalla {
 		*/
 		
 		Pantalla p = Pantalla.getPantalla();
+		
+
 
 
 		for (int i = 0; i != comandos.size(); i++) {
@@ -85,6 +87,10 @@ public class ControladorDePantalla {
 			}
 			
 		}
+		
+		p.desmarcarTodo(); // Actualizar los colores de las casillas del último move
+
+		
 		ReproductorDeAudio.getRep().reproducirSFX("movimiento");
 		p.repaint();
 

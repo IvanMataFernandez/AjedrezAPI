@@ -9,6 +9,7 @@ public class Casilla extends JPanel {
 	private int f;
 	private int c;
 	private Pieza pieza;
+	private boolean usadoEnTurnoAnterior;
 	
 	public Casilla (int f, int c) {
 
@@ -17,6 +18,7 @@ public class Casilla extends JPanel {
 		super.setOpaque(true);
 		this.f = f;
 		this.c = c;
+		this.usadoEnTurnoAnterior = false;
 		this.desmarcar();
 	}
 	
@@ -72,14 +74,24 @@ public class Casilla extends JPanel {
 		super.setBackground(Color.red);
 	}
 	
+
 	public void desmarcar() {
-		if ((this.f + this.c) % 2 == 0) {
+		
+		if (this.usadoEnTurnoAnterior) {
+			super.setBackground(Color.orange);
+		
+		
+	    } else if ((this.f + this.c) % 2 == 0) {
 			super.setBackground(new Color(238, 238, 210));
 		} else {
 			super.setBackground(new Color(118, 150, 86));
 		}
 		
 		
+	}
+	
+	public void setUsadoEnTurnoAnterior (boolean valor) {
+		this.usadoEnTurnoAnterior = valor;
 	}
 
 }

@@ -50,8 +50,26 @@ public class Pieza extends JLabel {
 
 		} 
 		
+		// TODO: Mejorar posición de las piezas
+		/* Inicio block : Handle temporal cropping de las piezas 
+		  
+		  Solución temporal: Mover los labels arriba un poco todos
+		  y dar 320ms al programa a que mueva los labels correctamente
+		  (genera lag al inicio de la partida
+		  
+		 */
 
-		super.setBounds(0, 0, 85, 85);
+		super.setBounds(0, -5, 85, 85);
+		
+		try {
+			Thread.sleep(20);
+		} catch (InterruptedException e) {}
+
+		// Fin block: Handle cropping de las piezas
+		
+		
+		
+		
 		super.setIcon(new ImageIcon(rutaCompleta));
 		
 	}

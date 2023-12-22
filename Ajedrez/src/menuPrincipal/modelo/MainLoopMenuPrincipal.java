@@ -43,7 +43,7 @@ public class MainLoopMenuPrincipal {
 
 				break;
 			case 2:
-				// TODO: Menu: Jugar de forma online con otro player
+				// Menu: Jugar de forma online con otro player
 				
 				MenuPrincipal.getMenu().cerrarVentana();
 				Cliente.getCliente().ejecutarCliente();

@@ -11,6 +11,8 @@ import juegoBase.controlador.ControladorDeCasilla;
 
 
 
+// TODO: Opción visual para ver a que color le toca mover
+
 public class Pantalla extends JFrame {
 	
 	private class Posicion {
@@ -24,6 +26,8 @@ public class Pantalla extends JFrame {
 	private JPanel panelTablero;
 	private Casilla[][] tablero;
 	private Posicion[] clicks;
+	
+	
 	
 	
 	private Pantalla () {
@@ -59,6 +63,7 @@ public class Pantalla extends JFrame {
 	private void inicializarTablero() {
 		
 		this.clicks = new Posicion[2];
+		
 		super.setBounds(0, 0, 680, 680); // 85* 8 = 680
 		super.setResizable(false);
 		
@@ -91,6 +96,12 @@ public class Pantalla extends JFrame {
 		super.setVisible(true);
 
 	}
+	
+	public void setCasillasDeMovAnterior(int f1, int c1, int f2, int c2) {
+
+	}
+	
+	
 	
 	public void colocarPiezas() {
 		// Duh, hacer lo de poner los dibujos aquí
@@ -183,11 +194,13 @@ public class Pantalla extends JFrame {
 		for (int i = 0; i != 8; i++) {
 			for (int j = 0; j != 8; j++) {
 				this.tablero[i][j].desmarcar();
+				
 			}
 		}
 		
 		
 	}
+	
 
 	public void moverPieza(int f1, int c1, int f2, int c2) {
 		// Pre: (f1, c1) tiene pieza. (f2, c2) está en dominio del tablero
@@ -195,6 +208,20 @@ public class Pantalla extends JFrame {
 		
 		Pieza p = this.tablero[f1][c1].quitarPieza();
 		this.tablero[f2][c2].ponerPieza(p);
+		
+		// Marcar en otro color estas dos casillas para saber que movimiento se hizo
+		
+		for (int i = 0; i != 8; i++) {
+			for (int j = 0; j != 8; j++) {
+				this.tablero[i][j].setUsadoEnTurnoAnterior(false);
+				
+			}
+		}
+		
+		this.tablero[f1][c1].setUsadoEnTurnoAnterior(true);
+		this.tablero[f2][c2].setUsadoEnTurnoAnterior(true);
+		
+		
 		
 	}
 	

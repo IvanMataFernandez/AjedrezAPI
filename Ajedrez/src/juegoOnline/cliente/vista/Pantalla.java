@@ -15,6 +15,9 @@ import juegoBase.vista.Pieza;
 
 
 
+// TODO: Opción visual para ver si es tu turno o no 
+
+
 public class Pantalla extends JFrame {
 	
 	// La mayoría del código se reusa de juegoBase.vista.Pantalla, se ha rescrito pq se requieren algunos cambios menores
@@ -215,6 +218,19 @@ public class Pantalla extends JFrame {
 		
 		Pieza p = this.tablero[f1][c1].quitarPieza();
 		this.tablero[f2][c2].ponerPieza(p);
+		
+		
+		// Marcar en otro color estas dos casillas para saber que movimiento se hizo
+		
+		for (int i = 0; i != 8; i++) {
+			for (int j = 0; j != 8; j++) {
+				this.tablero[i][j].setUsadoEnTurnoAnterior(false);
+				
+			}
+		}
+		
+		this.tablero[f1][c1].setUsadoEnTurnoAnterior(true);
+		this.tablero[f2][c2].setUsadoEnTurnoAnterior(true);
 		
 	}
 	

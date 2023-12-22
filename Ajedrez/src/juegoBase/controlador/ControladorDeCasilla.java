@@ -85,15 +85,16 @@ public class ControladorDeCasilla implements MouseListener {
 				
 				Movimiento mov = j.moverPieza(f1, c1, f, c);
 				
+				
 				// Mover las piezas necesarias en la interfaz
 				this.procesarInstruccionesAPantalla(mov.informarPantalla());
 				
 				ControladorDeReproductorDeAudio reproductor = new ControladorDeReproductorDeAudio();
 				reproductor.reproducirAudio("movimiento");
 				
-				p.desmarcarTodo();
 				p.eliminarClick(2);
 				p.eliminarClick(1);
+				p.desmarcarTodo();
 
 				m.setSeMovio();
 				
