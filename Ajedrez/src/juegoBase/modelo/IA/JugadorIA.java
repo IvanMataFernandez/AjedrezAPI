@@ -17,12 +17,15 @@ import juegoBase.vista.Pantalla;
 public abstract class JugadorIA extends Jugador {
 	
 	
-	// TODO: Crear más IAs distintas, reworkear code
+	// TODO: Crear más IAs distintas, debuggear code
 	
 	/*
-	  Tal y como está el code ahora no se pueden deshacer moves más de un turno hacia adelante
-	  Cambiarlo de forma que se pueda clonar el tablero o smth y que se pueda evaluar el tablero
-	  de forma fácil
+	  Debuggear si la clase MovimientoIA funciona correctamente. MovimientoIA debería ser capaz
+	  de actualizar el tablero real y deshacer movimientos ya confirmados de manera segura siempre
+	  que se deshagan en orden inverso al que se ejecutaron.
+	  
+	  Usa el método realizarMovimiento() para actualizar inmediatamente los cambios en la matriz
+	  y en las listas de piezas de players.
 
 	 */
 

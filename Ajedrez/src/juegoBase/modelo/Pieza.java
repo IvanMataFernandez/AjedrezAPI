@@ -43,12 +43,23 @@ public abstract class Pieza {
     
     
     public abstract void procesarMovimiento(int f, int c); // Procesar flags seMovio, vulnerableAEnPassant
-                                                           // Parámetros indican de donde mueve  
+           
+    
+	public abstract void antiProcesarMovimiento(int f, int c) ; // Actualizar los flags como si no se hubiera movido
+		
+	
+    
+    // Parámetros indican de donde mueve  
  
     public void eliminarseDeListaDeJugador() {
     	// Post: Se ha eliminado la ficha de la lista de piezas restantes
     	
     	ListaJugadores.getListaJugadores().obtenerJugador(this.blancoYNoNegro).eliminarPieza(this);
+    }
+    
+    public void ponerseEnListaDeJugador() {
+    	ListaJugadores.getListaJugadores().obtenerJugador(this.blancoYNoNegro).añadirPieza(this);
+    	
     }
     
  

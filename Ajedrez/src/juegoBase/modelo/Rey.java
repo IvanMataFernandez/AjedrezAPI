@@ -5,15 +5,16 @@ import java.util.ArrayList;
 
 public class Rey extends Pieza {
 	
-	private boolean seMovio; // El enroque (castling) solo se puede hacer si el rey no se movio
+	private int vecesMovido; // El enroque (castling) solo se puede hacer si el rey no se movio
+	
 	
     public Rey(int posY, int posX, boolean color) {
         super(posY, posX, color,5);
-    	this.seMovio = false;
+    	this.vecesMovido = 0;
 
     }
     
-    public boolean seMovio() {return this.seMovio;}
+    public boolean seMovio() {return this.vecesMovido != 0;}
     
 
     @Override
@@ -46,7 +47,7 @@ public class Rey extends Pieza {
                 }
             } 
             
-            if (!this.seMovio && !super.enRangoDelRival()) {
+            if (!this.seMovio() && !super.enRangoDelRival()) {
                 // Enroque largo (0-0-0)
         
             	
@@ -206,9 +207,13 @@ public class Rey extends Pieza {
 
 		// Se está aceptando el movimiento, así que se habrá movido
 		
-		this.seMovio = true;
+		this.vecesMovido++;
 	}
 
+	public void antiProcesarMovimiento(int f, int c) {
+		this.vecesMovido--;
+	}
+	
 	public String toString() {
 		return "k";
 	}

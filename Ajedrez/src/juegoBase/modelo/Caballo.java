@@ -48,6 +48,12 @@ public class Caballo extends Pieza {
 	public String toString() {
 		return "n";
 	}
+
+	@Override
+	public void antiProcesarMovimiento(int f, int c) {
+		// Caballo no procesa nada adicional
+		
+	}
 	
 
 }

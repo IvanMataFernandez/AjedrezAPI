@@ -7,10 +7,12 @@ public class Peon extends Pieza {
 	
 	
 	private boolean vulnerableAEnPassant; // vulnerable <--> Su primer y unico movimiento ha sido avanzar dos casillas
+	private int vecesMovido;
 	
     public Peon(int posY, int posX, boolean color) {
         super(posY, posX, color,0);
     	this.vulnerableAEnPassant = false;
+    	this.vecesMovido = 0;
 
     }
 
@@ -114,9 +116,32 @@ public class Peon extends Pieza {
 		
 		// Si acaba de mover dos casillas adelante es vulnerable, si no, no
 		
-		this.vulnerableAEnPassant = Math.abs(super.getPosY() - f) == 2;
+		this.vecesMovido++;
+		
+		if (super.pBando()) {
+			this.vulnerableAEnPassant = this.vecesMovido == 1 && f == 4;
+		} else {
+			this.vulnerableAEnPassant = this.vecesMovido == 1 && f == 3;
+		}
+		
 		
 
+		
+	}
+	
+	
+	public void antiProcesarMovimiento(int f, int c) {
+		
+		// Al deshacer el move, ver si puede ser eliminado por enPassant
+		
+		this.vecesMovido--;
+		
+		if (super.pBando()) {
+			this.vulnerableAEnPassant = this.vecesMovido == 1 && f == 4;
+		} else {
+			this.vulnerableAEnPassant = this.vecesMovido == 1 && f == 3;
+		}
+		
 		
 	}
 	

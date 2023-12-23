@@ -1,6 +1,7 @@
 package juegoBase.modelo.IA;
 
 
+import juegoBase.modelo.Matriz;
 import juegoBase.modelo.Peon;
 import juegoBase.modelo.Pieza;
 import juegoBase.modelo.Tupla;
@@ -16,7 +17,7 @@ public class MovimientoIA {
  	private boolean seVaAComer;
  	private boolean enPassant;
  	private Pieza piezaComida;
- 	private boolean huboAscenso;
+ 	private Peon peonAscendido;
 
  	public MovimientoIA(int f1, int c1, Tupla tupla) {
 		super();
@@ -25,29 +26,31 @@ public class MovimientoIA {
 		this.f2 = tupla.getF();
 		this.c2 = tupla.getC();
 		this.seVaAComer = tupla.come();
-		this.huboAscenso = false;
+		this.peonAscendido = null;
 		
 	}
  	
  
  	
 
-    public void realizarMovimiento(Pieza[][] matriz) {
-        // Pre: piezaComida == null
-        // Post: Actualizar el movimiento, pero no definitivo y se puede deshacer
-       
+    public void realizarMovimiento() {
     	
+    	// Ejecutar y confirmar el move por simulación de IA. Este proceso es revesible
+
+       
+    	Pieza[][] matriz = Matriz.getMatriz().getTablero();
     	
     	Pieza piezaAMover = matriz[this.f1][this.c1];
     	
         // Eliminar la ficha comida (Si hubiera)
+    	
         if (this.seVaAComer) {
         	
             if (matriz[this.f2][this.c2] != null) { // Eliminacion por poner tu ficha en la de el/ella
                 this.piezaComida = matriz[this.f2][this.c2];
                 matriz[this.f2][this.c2] = null;
          
-            } else { // Eliminacion enPassant
+            } else { // Checkeo eliminacion enPassant
             	
             	this.enPassant = true;
                 if (piezaAMover.pBando()) {
@@ -112,34 +115,56 @@ public class MovimientoIA {
             torre.setPosX(cTorreFin);
             
             
-            // También añadir a la lista de comandos para la interfaz la de mover la torre de sitio
             
 
         }
      		
 
-       	 
-        if ((this.f2 == 0 || this.f2 == 7) && matriz[this.f2][this.c2].tipo() == 0) { // si hay algun peon en su ultima fila, se debe bufferear la instruccion de ascenderlo para despues
-        	this.huboAscenso = true;
+       	// Comprobar si hay ascensos de peón, si los hay, guardar el peón para cuando se vaya a deshacer esto
+        // y poner una reina temporal en esa posición en su lugar
+        
+        if ((this.f2 == 0 || this.f2 == 7) && matriz[this.f2][this.c2].tipo() == 0) { 
+        	this.peonAscendido = (Peon) matriz[this.f1][this.c1];
+        	Matriz.getMatriz().eliminarPieza(f2, c2);
+        	Matriz.getMatriz().añadirPieza(f2, c2, this.peonAscendido.pBando(), 4);
 
        }
         
+        // Actualizar flags de rey/torre/peon
         
+        Matriz.getMatriz().procesarMovimientoEnPieza(f1, c1, f2, c2);
+        
+        
+        // Eliminar la pieza comida
+        
+       	if (this.piezaComida != null) {
+    		this.piezaComida.eliminarseDeListaDeJugador();
+    	}
+       
         
     }
     public void deshacerMovimiento(Pieza[][] matriz) {
 
 
+    	// Revertir el move por simulación de IA.
+
+    	// Actualizar flags de rey/torre/peon
+    	
+        Matriz.getMatriz().antiProcesarMovimientoEnPieza(f2, c2, f1, c1);
 
     	
+        // Mover atrás de nuevo la pieza, si dio la casualidad de que fue una promoción,
+    	// cambiar la reina por el peón que se había almacenado anteriormente
     	
-        // Mover atrás de nuevo la pieza
-    	if (!this.huboAscenso) {
-            matriz[this.f1][this.c1] = matriz[this.f2][this.c2];    		
-    	} else {
-    		matriz[this.f1][this.c1] = new Peon(this.f1, this.c1, matriz[this.f2][this.c2].pBando());
+    	if (this.peonAscendido != null) {
+    		
+        	Matriz.getMatriz().eliminarPieza(f2, c2);
+        	Matriz.getMatriz().añadirPieza(f2, c2, this.peonAscendido);
     	}
     	
+    	// Mover la pieza hacia atrás
+    	
+        matriz[this.f1][this.c1] = matriz[this.f2][this.c2];    		    	
         matriz[this.f2][this.c2] = null;
         matriz[this.f1][this.c1].setPosY(this.f1);
         matriz[this.f1][this.c1].setPosX(this.c1);
@@ -183,9 +208,14 @@ public class MovimientoIA {
             torre.setPosX(cTorreFin);
         }
         
-        
-		matriz[this.f2][this.c2].procesarMovimiento(this.f1, this.c1);
 
+        
+		//matriz[this.f2][this.c2].procesarMovimiento(this.f1, this.c1);
+		
+       	if (this.piezaComida != null) {
+    		this.piezaComida.ponerseEnListaDeJugador();
+    	}
+		
     }
     
 

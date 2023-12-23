@@ -171,4 +171,9 @@ public class Reina extends Pieza {
 		return "q";
 	}
 
+	@Override
+	public void antiProcesarMovimiento(int f, int c) {
+		// La reina no actualiza flags adicionales		
+	}
+
 }

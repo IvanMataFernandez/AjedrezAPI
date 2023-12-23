@@ -136,6 +136,14 @@ public class Matriz {
 		
 		this.tablero[f2][c2].procesarMovimiento(f1, c1);
 	}
+	
+	public void antiProcesarMovimientoEnPieza (int f1, int c1, int f2, int c2) {
+		// Actualizar los flags de forma inversa al método superior.
+		// Pre: La pieza sigue estando todavía en (f2, c2), este método
+		// se llama antes del movimiento inverso.
+		
+		this.tablero[f2][c2].antiProcesarMovimiento(f1, c1);
+	}
 
 	
 	public Movimiento moverPieza(int f1, int c1, int f2, int c2) {
@@ -157,6 +165,11 @@ public class Matriz {
 		this.tablero[f][c] = null;
 		
 		
+	}
+	
+	public void añadirPieza(int f, int c, Pieza p) {
+		this.tablero[f][c] = p;
+		p.ponerseEnListaDeJugador();
 	}
 	
     public void añadirPieza(int f, int c, boolean pBlanco, int pTipo) {
