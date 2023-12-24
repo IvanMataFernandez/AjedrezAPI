@@ -155,6 +155,7 @@ public class Servidor {
 		Movimiento mov = null;
 		
 		ListaJugadores l = ListaJugadores.getListaJugadores();
+		l.inicializarPlayers(true);
 		l.reiniciarPunteroDeJugadores();
 		Jugador j = l.obtenerJugadorActual();
 		Matriz tab = Matriz.getMatriz();
